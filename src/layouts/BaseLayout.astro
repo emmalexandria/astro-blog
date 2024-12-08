@@ -1,0 +1,58 @@
+---
+import "../styles/global.css"
+import "@fontsource-variable/vollkorn"
+import "@fontsource-variable/exo-2"
+import "@fontsource/overpass-mono"
+import BaseHead from "../components/BaseHead.astro"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+
+let {title, description} = Astro.props
+---
+
+<!doctype html>
+<html lang="en" class="font-body bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <header>
+      <Header />
+    </header>
+    <main class="px-8">
+      <slot/>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+
+
+<svg class="w-0 h-0">
+  <defs>
+
+    
+    <filter id="squiggly-0">
+      <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0"/>
+      <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="2" />
+    </filter>
+    <filter id="squiggly-1">
+      <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1"/>
+<feDisplacementMap in="SourceGraphic" in2="noise" scale="4" />
+    </filter>
+    
+    <filter id="squiggly-2">
+      <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2"/>
+<feDisplacementMap in="SourceGraphic" in2="noise" scale="4" />
+    </filter>
+    <filter id="squiggly-3">
+      <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3"/>
+<feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+    </filter>
+    
+    <filter id="squiggly-4">
+      <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4"/>
+<feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+    </filter>
+  </defs> </svg>
+</html>
