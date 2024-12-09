@@ -1,0 +1,14 @@
+---
+import Tag from "./Tag.astro"
+interface Props {
+  tags: string[]
+}
+let {tags}: Props  = Astro.props
+---
+
+<span>
+{tags.map((tag) => (
+        <Tag tag={tag}/> 
+))}
+</span>
+

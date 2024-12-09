@@ -1,0 +1,19 @@
+---
+import type { HeadingLevel } from '../toc'
+
+type Props = {heading: HeadingLevel}
+let {heading}:Props = Astro.props
+---
+
+<li>
+  <a href={`#${heading.heading.slug}`}>
+    {heading.heading.text}
+    {heading.subheadings.length > 0 && (
+      <ol>
+      {heading.subheadings.map((subheading: HeadingLevel) => (
+        <Astro.self heading={subheading}/>
+      ))}
+      </ol>
+    )}
+</a>
+</li>

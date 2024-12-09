@@ -1,0 +1,25 @@
+---
+import type { HeadingLevel } from '../toc'
+import TocLevel from './TocLevel.astro'
+
+
+type Props = {headings: HeadingLevel[]}
+
+let {headings}: Props = Astro.props
+console.log(headings)
+
+---
+
+<h2 class="mb-0 mt-4">Table of Contents</h2>
+<div id="tableOfContents">
+<ol class="my-0">
+
+{
+
+  headings.map((heading: HeadingLevel) => (
+<TocLevel heading={heading}/> 
+  ))
+  }
+
+  </ol>
+</div>

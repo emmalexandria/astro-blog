@@ -2,10 +2,12 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
+import {nestHeadings} from "../../toc"
+import BlogImage from '../../components/blog/BlogImage.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
-	return posts.map((post) => ({
+	return posts.map((post: any) => ({
 		params: { slug: post.id },
 		props: post,
 	}));
@@ -13,9 +15,11 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const postRender = await render(post);
+
 ---
 
-<BlogPost {...post.data}>
-	<Content />
+<BlogPost {...post.data} headings={nestHeadings(postRender.headings)}>
+  <p>{postRender.headings[0]}</p>
+  <postRender.Content components={{img: BlogImage}} />
 </BlogPost>

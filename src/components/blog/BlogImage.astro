@@ -1,0 +1,13 @@
+---
+import path from "path"
+import Image from "../Image.astro";
+
+interface Props {
+  src: string;
+  alt: string;
+}
+
+let {src, alt}: Props = Astro.props 
+---
+
+<Image {src} {alt} caption={alt} loading="lazy"/>

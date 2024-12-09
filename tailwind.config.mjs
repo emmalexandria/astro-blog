@@ -42,7 +42,7 @@ export default {
         },
       },
       spacing: {
-        content: '80ch'
+        content: '70ch'
       },
 
     },

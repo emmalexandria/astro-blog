@@ -1,24 +1,24 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
 import BaseLayout from './BaseLayout.astro';
+import type { Heading, HeadingLevel } from '../toc';
+import Toc from "../components/Toc.astro"
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {headings: HeadingLevel[]}
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, image, tags, imageAlt, headings } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <article class="w-content mx-auto">
-    <div class="hero-image">
-      {heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+    <article class="w-content mx-auto">
+    <div class="hero-image rounded-md overflow-clip">
+      {image && <img src={image} alt={imageAlt} />}
     </div>
     <div>
-      <div class="title">
+      <div class="mt-4">
+        <h1 class="title mb-0">{title}</h1>
         <div class="date">
           <FormattedDate date={pubDate} />
           {
@@ -29,11 +29,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
           )
           }
         </div>
-        <h1>{title}</h1>
+
+      <Toc headings={headings}/>
         <hr />
       </div>
-      <slot />
     </div>
+    <slot />
   </article>
 </BaseLayout>
 

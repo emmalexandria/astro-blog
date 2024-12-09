@@ -1,0 +1,31 @@
+---
+import path from "path"
+import {Picture} from "astro:assets";
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  relative?: boolean;
+  loading?: "lazy" | "eager";
+  class?: string
+}
+
+let {src, alt, caption, relative=true, loading="lazy", class: className = ""}: Props = Astro.props 
+
+if(relative) {
+  src = path.join("/src/assets", src)
+}
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif,webp}');
+if(src) {
+  if (!images[src] ) throw new Error(`"${src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
+}
+---
+
+<figure>
+  <Picture class={className}  src={images[src]()} {alt} formats={["webp","avif"]} densities={[0.5, 1, 1.5, 2]}/>
+  {caption && (
+    <figcaption>{caption}</figcaption>
+  )}
+</figure>
+

@@ -1,0 +1,39 @@
+---
+import  Image from '../Image.astro';
+import FormattedDate from '../FormattedDate.astro';
+import TagDisplay from './TagDisplay.astro';
+
+interface Props {
+  id: string;
+  imagePath?: string;
+  altText?: string;
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+  index?: number
+}
+
+
+let {id, imagePath, altText, title, description, date, tags,index=0}: Props = Astro.props
+
+
+let loading: "eager" | "lazy" = index < 3 ? "eager" : "lazy"
+---
+
+<div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
+  <a  href={`/blog/${id}/`}>
+    {imagePath &&  <Image loading={loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
+  <h2 class="font-display text-xl">{title}</h2>
+  </a>
+      <p class="text-sm italic">
+        <FormattedDate date={date} />
+      </p>
+      <p >{description}</p>
+      {tags && (
+      <div class="flex flex-row gap-2">
+        <TagDisplay tags={tags}/>
+      </div>
+      )}
+  </div>
+

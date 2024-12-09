@@ -1,0 +1,19 @@
+---
+import { Sun, Moon } from "lucide-astro"
+---
+
+<label class="w-6 h-6" >
+<button id="themeSwitcher" name="themeSwitcher" class="hidden" />
+  <Sun/>
+</label>
+
+<script>
+import { toggleTheme } from "../themes";
+
+document.querySelector("#themeSwitcher")?.addEventListener("click", toggleTheme)
+
+
+</script>
+
+
+

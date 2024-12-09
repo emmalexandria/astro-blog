@@ -1,8 +1,4 @@
 ---
-import "../styles/global.css"
-import "@fontsource-variable/vollkorn"
-import "@fontsource-variable/exo-2"
-import "@fontsource/overpass-mono"
 import BaseHead from "../components/BaseHead.astro"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
@@ -11,24 +7,24 @@ let {title, description} = Astro.props
 ---
 
 <!doctype html>
-<html lang="en" class="font-body bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50">
+<html lang="en" class="scroll-smooth">
   <head>
     <BaseHead title={title} description={description} />
   </head>
-  <body>
+  <body class="font-body bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50">
     <header>
       <Header />
     </header>
     <main class="px-8">
       <slot/>
     </main>
-    <footer>
+    <footer class="px-8 py-4">
       <Footer />
     </footer>
   </body>
 
 
-<svg class="w-0 h-0">
+<svg class="w-0 h-0" aria-hidden="true">
   <defs>
 
     
