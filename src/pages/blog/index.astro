@@ -14,7 +14,6 @@ const posts = (await getCollection('blog')).sort(
 	(a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const images = import.meta.glob<{default: ImageMetadata}>("../../assets/*");
 ---
 
 <BaseLayout title="All posts" description="All my posts">

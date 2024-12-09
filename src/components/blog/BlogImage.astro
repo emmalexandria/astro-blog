@@ -1,5 +1,4 @@
 ---
-import path from "path"
 import Image from "../Image.astro";
 
 interface Props {
@@ -10,4 +9,4 @@ interface Props {
 let {src, alt}: Props = Astro.props 
 ---
 
-<Image {src} {alt} caption={alt} loading="lazy"/>
+<Image class="rounded" {src} {alt} caption={alt} loading="lazy"/>
