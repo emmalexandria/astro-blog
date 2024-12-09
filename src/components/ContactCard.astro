@@ -7,7 +7,7 @@ interface Props {
 let {href, name, text}:Props = Astro.props
 ---
 
-<a {href} target="_blank" class="block border border-duotone hover:border-duotone-hover flex flex-row items-center gap-4 px-4 py-2 rounded">
+<a {href} target="_blank" class="transition-all border border-duotone hover:border-duotone-hover flex flex-row items-center gap-4 px-4 py-2 rounded">
   <span class="text-3xl">
     <slot/>
   </span>

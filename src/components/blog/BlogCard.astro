@@ -2,6 +2,8 @@
 import  Image from '../Image.astro';
 import FormattedDate from '../FormattedDate.astro';
 import TagDisplay from './TagDisplay.astro';
+import LinkButton from '../LinkButton.astro';
+import {Icon} from "astro-icon/components"
 
 interface Props {
   id: string;
@@ -29,11 +31,12 @@ let loading: "eager" | "lazy" = index < 3 ? "eager" : "lazy"
       <p class="text-sm italic">
         <FormattedDate date={date} />
       </p>
-      <p >{description}</p>
-      {tags && (
-      <div class="flex flex-row gap-2">
-        <TagDisplay tags={tags}/>
-      </div>
-      )}
+  <p class="mb-2">{description}</p>
+<LinkButton href={`/blog/${id}`}>Read more <Icon name="lucide:arrow-right"/></LinkButton>
+  {tags && (
+  <div class="flex flex-row gap-2 mt-2">
+    <TagDisplay tags={tags}/>
   </div>
+  )}
+</div>
 

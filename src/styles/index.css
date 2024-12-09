@@ -23,6 +23,15 @@ body.dark .astro-code span {
     @apply  border-duotone-high -translate-y-[0.05rem]
   }
 
+  .border-shadow-primary {
+    @apply border-primary-300 dark:border-primary-600 shadow-md shadow-primary-300/50 dark:shadow-primary-600/50
+  }
+
+  .border-shadow-primary-high {
+    @apply border-primary-500 dark:border-primary-400 shadow-lg shadow-primary-300/50 dark:shadow-primary-600/50 -translate-y-[0.05rem]
+  }
+
+
 
   @keyframes squigglevision {
   0% {
@@ -273,7 +282,7 @@ article {
         position: relative;
         &::before {
           @apply absolute content-['#'] opacity-0 transition-all;
-          transform: translateY(0.2em);
+          transform: translateY(1em);
         }
         &:hover {
           transform: translateX(1ch);
