@@ -19,7 +19,7 @@ import compressor from 'astro-compressor';
 export default defineConfig({
   site: 'https://blog.emmalexandria.dev',
   markdown: {
-    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { properties: { class: 'heading-link' } }]],
+    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { properties: { class: 'heading-link' }, behavior: 'wrap' }]],
   },
   integrations: [mdx(), sitemap(), tailwind(), svelte(), compress({ Image: false }), purgecss(), compressor()]
 });

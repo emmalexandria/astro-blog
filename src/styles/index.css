@@ -258,21 +258,22 @@ article {
 
   }
   
-  h2,h3,h4,h5,h6>a>span {
-    &:hover{
-      &>a>span {
-        opacity: 100%;
-        position: absolute;
-        transform: translateX(-1ch);
+  h2,h3,h4,h5,h6 {
+    &:has(.heading-link) {
+      &>.heading-link{
+        position: relative;
+        &::before {
+          @apply absolute content-['#'] opacity-0 transition-all;
+          transform: translateY(0.2em);
+        }
+        &:hover {
+          transform: translateX(1ch);
+          &::before {
+            transform: translate(-1ch, 0.2em);
+            opacity: 100%;
+          }
+        }
       }
-      transform: translateX(1ch);
-    }
-
-
-
-
-    &>a>span {
-      @apply absolute before:content-['#'] opacity-0 transition-all;
     }
   }
 

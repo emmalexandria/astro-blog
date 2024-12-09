@@ -2,13 +2,26 @@
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 import ThemeSwitcher from './ThemeSwitcher.astro';
+import Logo from "../components/Logo.astro"
+
+
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
+const logo = pathname != "" ? true : false
 ---
 
 <nav class="flex flex-row gap-4 p-8 items-center">
   <a class="mr-auto" href="/">
-    <h1 class="font-display text-2xl my-0 leading-none ">{SITE_TITLE}</h1>
-    <h2 class="font-display text-sm my-0">Emma Alexandria's Blog</h2>
-    </a>
+    {!logo && (
+      <h1 class="font-display text-2xl my-0 leading-none ">{SITE_TITLE}</h1>
+      <h2 class="font-display text-sm my-0">Emma Alexandria's Blog</h2>
+    )}
+    {logo && (
+    <div class="w-12 h-auto">
+<Logo/>
+
+    </div>
+    )}
+        </a>
 		<ul class="font-display flex flex-row">
 			<HeaderLink href="/blog">Posts</HeaderLink>
 			<HeaderLink href="/contact">Contact</HeaderLink>

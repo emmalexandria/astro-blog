@@ -11,7 +11,7 @@ tags: [rust, programming, terminal, crate]
 
 `antsee` is a library which allows you to effortlessly define human friendly configuration for terminal styles and colours. An example shows it best:
 
-![Hello](/blog-placeholder-4.jpg)
+![Hello](blog-placeholder-4.jpg)
 
 ```rust
 struct Config {

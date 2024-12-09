@@ -1,4 +1,5 @@
 ---
+import Logo from "../components/Logo.astro"
 import { SITE_TITLE } from "../consts"
 import BaseLayout from "../layouts/BaseLayout.astro"
 import * as rootContent from "./indexcontent.md"
@@ -7,6 +8,9 @@ import * as rootContent from "./indexcontent.md"
 <BaseLayout title={`${SITE_TITLE} | Home`} description="Where I keep writing and stuff">
   <article class="w-content mx-auto heading-center">
     <div >
+      <div class="w-32 mx-auto">
+        <Logo/>
+      </div>
     <h1 class="text-center mb-0 title ">This is a simple blog</h1>
       <h2 class="text-center squiggle text-2xl mt-0 text-mono-400 dark:text-mono-400">It wants to not suck.</h2>
     </div>

@@ -2,9 +2,10 @@
 import { Sun, Moon } from "lucide-astro"
 ---
 
-<label class="w-6 h-6" >
+<label class="w-6 h-6 text-primary-500 hover:text-primary-700 dark:hover:text-primary-300 cursor-pointer" >
 <button id="themeSwitcher" name="themeSwitcher" class="hidden" />
-  <Sun/>
+  <Sun class="hidden dark:block"/>
+  <Moon class="block dark:hidden"/>
 </label>
 
 <script>

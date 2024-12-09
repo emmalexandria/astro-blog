@@ -20,6 +20,5 @@ const postRender = await render(post);
 ---
 
 <BlogPost {...post.data} headings={nestHeadings(postRender.headings)}>
-  <p>{postRender.headings[0]}</p>
   <postRender.Content components={{img: BlogImage}} />
 </BlogPost>
