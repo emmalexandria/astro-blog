@@ -19,12 +19,14 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blog.emmalexandria.dev',
+  site: 'https://emmalexandria.dev',
   markdown: {
     rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { properties: { class: 'heading-link' }, behavior: 'wrap' }]],
     shikiConfig: {
       themes: {
+        //@ts-ignore
         light: latte,
+        //@ts-ignore
         dark: macchiato
       }
     }
