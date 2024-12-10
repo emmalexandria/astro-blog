@@ -281,13 +281,13 @@ article {
       &>.heading-link{
         position: relative;
         &::before {
+          top: 0;
           @apply absolute content-['#'] opacity-0 transition-all;
-          transform: translateY(1em);
+          transform: translateY(0.1em);
         }
         &:hover {
-          transform: translateX(1ch);
           &::before {
-            transform: translate(-1ch, 0.2em);
+            transform: translate(-1ch, 0.1em);
             opacity: 100%;
           }
         }
