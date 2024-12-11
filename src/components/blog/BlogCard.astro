@@ -1,5 +1,5 @@
 ---
-import  Image from '../Image.astro';
+import  Figure from '../Figure.astro';
 import FormattedDate from '../FormattedDate.astro';
 import TagDisplay from './TagDisplay.astro';
 import LinkButton from '../LinkButton.astro';
@@ -19,13 +19,13 @@ interface Props {
 
 let {id, imagePath, altText, title, description, date, tags,index=0}: Props = Astro.props
 
-
+console.log(index)
 let loading: "eager" | "lazy" = index < 3 ? "eager" : "lazy"
 ---
 
 <div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
   <a  href={`/blog/${id}/`}>
-    {imagePath &&  <Image loading={loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
+    {imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
   <h2 class="font-display text-xl">{title}</h2>
   </a>
       <p class="text-sm italic">

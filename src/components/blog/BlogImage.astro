@@ -1,5 +1,5 @@
 ---
-import Image from "../Image.astro";
+import Figure from "../Figure.astro";
 
 interface Props {
   src: string;
@@ -9,4 +9,4 @@ interface Props {
 let {src, alt}: Props = Astro.props 
 ---
 
-<Image class="rounded" {src} {alt} caption={alt} loading="lazy"/>
+<Figure class="rounded" {src} {alt} caption={alt} loading="lazy"/>

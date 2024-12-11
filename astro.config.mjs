@@ -31,5 +31,8 @@ export default defineConfig({
       }
     }
   },
-  integrations: [mdx(), sitemap(), tailwind(), svelte(), compress({ Image: false }), purgecss(), compressor(), icon()]
+  integrations: [mdx(), sitemap(), tailwind(), svelte(), compress({ Image: false }), purgecss(), compressor(), icon()],
+  experimental: {
+    responsiveImages: true
+  }
 });

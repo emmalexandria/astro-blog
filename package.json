@@ -9,7 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.0.1",
+    "@astrojs/mdx": "^4.0.2",
     "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/svelte": "^7.0.1",
@@ -23,7 +23,8 @@
     "@iconify-json/logos": "^1.2.3",
     "@iconify-json/lucide": "^1.2.18",
     "@iconify-json/ri": "^1.2.3",
-    "astro": "^5.0.3",
+    "animejs": "^3.2.2",
+    "astro": "^5.0.5",
     "astro-compress": "^2.3.5",
     "astro-compressor": "^1.0.0",
     "astro-icon": "^1.1.4",
@@ -37,6 +38,7 @@
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@types/animejs": "^3.1.12",
     "rehype-accessible-emojis": "^0.3.2",
     "sass-embedded": "^1.82.0",
     "sharp": "^0.33.5"

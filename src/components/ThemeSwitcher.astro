@@ -4,16 +4,64 @@ import { Icon } from "astro-icon/components"
 
 <label class="text-2xl text-primary-500 hover:text-primary-700 dark:hover:text-primary-300 cursor-pointer" >
   <button id="themeSwitcher" name="themeSwitcher" class="hidden" />
-  <Icon name="lucide:sun" class="block dark:hidden"/>
-  <Icon name="lucide:moon" class="hidden dark:block"/>
+  <div class="grid-stack">
+    <Icon class="grid-stack-item" id="sunIcon" name="lucide:sun" />
+    <Icon class="grid-stack-item" id="moonIcon" name="lucide:moon" />
+  </div>
 </label>
 
+<style>
+.grid-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.grid-stack-item {
+  grid-area: 1 / 1 / 1 / 1;
+}
+</style>
+
 <script>
-import { toggleTheme } from "../themes";
+import { getTheme, toggleTheme, light, dark } from "../themes";
+import anime from "animejs/lib/anime.es.js"
 
-document.querySelector("#themeSwitcher")?.addEventListener("click", toggleTheme)
+let sun = document.querySelector("#sunIcon")
+let moon = document.querySelector("#moonIcon")
+
+if(getTheme() === dark) {
+  moon?.classList.add("opacity-0")
+} else {
+  sun?.classList.add("opacity-0")
+}
+
+const switchTheme = () => {
+  toggleTheme()
+  const currentTheme = getTheme()
+  const inEl = currentTheme === dark ? sun : moon
+  const outEl = currentTheme === dark ? moon : sun 
 
 
+  const duration = 300
+  anime({
+    targets: inEl,
+    opacity: [0, 1],
+    translateY: [-25, 0],
+    delay: duration/4,
+    duration 
+
+  })
+  anime({
+    targets: outEl,
+    opacity: [1, 0],
+    translateY: [0, 25],
+    duration
+  })
+}
+
+
+
+document.querySelector("#themeSwitcher")?.addEventListener("click", switchTheme)
 </script>
 
 

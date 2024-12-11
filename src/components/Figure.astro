@@ -1,6 +1,6 @@
 ---
 import path from "path"
-import {Picture} from "astro:assets";
+import {Picture, Image} from "astro:assets";
 interface Props {
   src: string;
   alt: string;
@@ -8,9 +8,10 @@ interface Props {
   relative?: boolean;
   loading?: "lazy" | "eager";
   class?: string
+  image?: boolean;
 }
 
-let {src, alt, caption, relative=true, loading="lazy", class: className = ""}: Props = Astro.props 
+let {src, alt, caption, relative=true, loading="lazy", class: className = "", image=false}: Props = Astro.props 
 
 if(relative) {
   src = path.join("/src/assets", src)
@@ -20,12 +21,17 @@ const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg
 if(src) {
   if (!images[src] ) throw new Error(`"${src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 }
+
 ---
 
-<figure>
-  <Picture class={className}  src={images[src]()} {alt} formats={["webp","avif"]} densities={[0.5, 1, 1.5, 2]}/>
+{image && (
+<Image class={className} {loading} src={images[src]()} {alt} layout="responsive"}/>
+)}
+{!image && (<figure>
+  <Picture class={className} {loading} src={images[src]()} {alt} formats={["webp","avif"]} layout="responsive"/>
   {caption && (
 <figcaption class="font-light text-mono-600 dark:text-mono-300 mt-1">{caption}</figcaption>
   )}
 </figure>
+)}
 

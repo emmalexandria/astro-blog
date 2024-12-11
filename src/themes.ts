@@ -1,8 +1,13 @@
-const dark = "dark"
-const light = "light"
+export const dark = "dark"
+export const light = "light"
 const key = "theme"
 
 export function toggleTheme() {
+  document.body.classList.add("transition-all")
+  setTimeout(() => {
+    document.body.classList.remove("transition-all")
+  }, 500)
+
   let theme = getTheme()
   if (theme == light) {
     setTheme(dark)
