@@ -13,14 +13,16 @@ body.dark .astro-code span {
 }
 
 @layer base {
-.border-duotone {
+  .border-duotone {
     @apply border-mono-200 dark:border-mono-700 shadow-md shadow-mono-300/50 dark:shadow-mono-600/50
   }
+
   .border-duotone-high {
     @apply border-mono-300 dark:border-mono-500 shadow-lg shadow-mono-300/50 dark:shadow-mono-600/50
   }
+
   .border-duotone-hover {
-    @apply  border-duotone-high -translate-y-[0.05rem]
+    @apply border-duotone-high -translate-y-[0.05rem]
   }
 
   .border-shadow-primary {
@@ -34,81 +36,101 @@ body.dark .astro-code span {
 
 
   @keyframes squigglevision {
-  0% {
-    filter: url("#squiggly-0");
-  }
-  5%{
-    filter: url("#squiggly-2");
-  }
-  10% {
+    0% {
+      filter: url("#squiggly-0");
+    }
 
-    filter: url("#squiggly-0");
-  }
-  15% {
+    5% {
+      filter: url("#squiggly-2");
+    }
 
-    filter: url("#squiggly-4");
-  }
-  20% {
+    10% {
 
-    filter: url("#squiggly-2");
-  }
-  25% {
-    filter: url("#squiggly-1");
-  }
-  30% {
-    filter: url("#squiggly-2");
-  }
-  35% {
+      filter: url("#squiggly-0");
+    }
 
-    filter: url("#squiggly-0");
-  }
-  40%{
+    15% {
 
-    filter: url("#squiggly-3");
-  }
-  45% {
-    filter: url("#squiggly-0");
-  }
-  50% {
-    filter: url("#squiggly-2");
-  }
-  55% {
-    filter: url("#squiggly-4");
-  }
-  60% {
-    filter: url("#squiggly-0");
-  }
-  65% {
+      filter: url("#squiggly-4");
+    }
 
-    filter: url("#squiggly-3");
-  }
-  70% {
+    20% {
 
-    filter: url("#squiggly-1");
-  }
-  75% {
-    filter: url("#squiggly-3");
-  }
-  80% {
+      filter: url("#squiggly-2");
+    }
 
-    filter: url("#squiggly-4");
-  }
-  85% {
-    filter: url("#squiggly-0");
+    25% {
+      filter: url("#squiggly-1");
+    }
 
-  }
-  90%{
-    filter: url("#squiggly-3");
-  }
-  95% {
-    filter: url("#squiggly-1");
-  }
-  100% {
-    filter: url("#squiggly-4");
-  }
+    30% {
+      filter: url("#squiggly-2");
+    }
+
+    35% {
+
+      filter: url("#squiggly-0");
+    }
+
+    40% {
+
+      filter: url("#squiggly-3");
+    }
+
+    45% {
+      filter: url("#squiggly-0");
+    }
+
+    50% {
+      filter: url("#squiggly-2");
+    }
+
+    55% {
+      filter: url("#squiggly-4");
+    }
+
+    60% {
+      filter: url("#squiggly-0");
+    }
+
+    65% {
+
+      filter: url("#squiggly-3");
+    }
+
+    70% {
+
+      filter: url("#squiggly-1");
+    }
+
+    75% {
+      filter: url("#squiggly-3");
+    }
+
+    80% {
+
+      filter: url("#squiggly-4");
+    }
+
+    85% {
+      filter: url("#squiggly-0");
+
+    }
+
+    90% {
+      filter: url("#squiggly-3");
+    }
+
+    95% {
+      filter: url("#squiggly-1");
+    }
+
+    100% {
+      filter: url("#squiggly-4");
+    }
   }
 
-  .squiggle{
+  .squiggle {
     animation: squigglevision 4s alternate ease-in-out infinite;
   }
 }
@@ -120,16 +142,15 @@ body.dark .astro-code span {
 
   ol:not(:first-child) {
     @apply pl-4 border-l border-dashed border-l-mono-300 dark:border-l-mono-800
-
   }
 
   ol {
-    @apply list-decimal list-inside my-0 ;
+    @apply list-decimal list-inside my-0;
     @apply marker:font-bold
   }
 
   li:not(:first-child) {
-    @apply my-2 
+    @apply my-2
   }
 
   li:first-child {
@@ -160,8 +181,13 @@ body.dark .astro-code span {
 }
 
 article {
-  p,ol,ul,pre,code {
-    @apply text-body max-w-content 
+
+  p,
+  ol,
+  ul,
+  pre,
+  code {
+    @apply text-body max-w-content
   }
 
   p {
@@ -169,40 +195,51 @@ article {
   }
 
   h1.title {
-    @apply text-5xl squiggle  leading-tight font-bold font-display;
+    @apply text-4xl md:text-5xl squiggle leading-tight font-bold font-display;
   }
 
-  
+  h2.subtitle {
+    @apply text-xl md:text-2xl mt-0 text-mono-400 dark:text-mono-400
+  }
 
-  h2,h3,h4,h5,h6 {
+
+
+  h2, h3, h4, h5, h6 {
     &:hover {
-      @apply squiggle;  
-      
-    }    
+      @apply squiggle;
+
+    }
+
     @apply w-full mb-4 leading-tight font-bold font-display transition-all;
   }
 
   &.heading-center {
-    h1,h2,h3,h4,h5,h6 {
-      @apply mx-auto text-center; 
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply mx-auto text-center justify-center;
     }
   }
 
 
   h2 {
-    @apply text-4xl mt-8  
+    @apply text-3xl md:text-4xl mt-8
   }
 
   h3 {
-    @apply text-3xl mt-7
+    @apply text-2xl md:text-3xl mt-7
   }
 
   h4 {
-    @apply text-2xl mt-6
+    @apply text-xl md:text-2xl mt-6
   }
 
   h5 {
-    @apply text-xl mt-5
+    @apply text-lg md:text-xl mt-5
   }
 
   h6 {
@@ -230,7 +267,7 @@ article {
     @apply mb-2
   }
 
-  p + ul, p + ol {
+  p+ul, p+ol {
     @apply -mt-3
   }
 
@@ -242,49 +279,75 @@ article {
 
   pre {
     &:hover {
-      @apply border-duotone-hover  
+      @apply border-duotone-hover
     }
-    @apply rounded overflow-clip p-4 mb-6 border border-duotone overflow-x-auto font-mono text-mono transition-all dark:saturate-150
-  } 
+
+    @apply rounded overflow-clip p-4 mb-6 border border-duotone overflow-x-auto font-mono text-sm md:text-base transition-all dark:saturate-150
+  }
 
   code:not(pre *) {
-    @apply bg-mono-100 dark:bg-mono-900  rounded-sm font-mono text-mono px-1 py-[0.10rem]
+    @apply bg-mono-100 dark:bg-mono-900 text-wrap break-all rounded-sm font-mono px-1 py-[0.10rem]
   }
 
 
-  hr { 
+  hr {
     @apply border-t border-t-mono-300 dark:border-t-mono-800 my-8
   }
 
-  a:not(.heading-link):not(#tableOfContents *):not(#PostTaxonomy *) {
-    &:hover, &:hover:visited {
+  a:not(.heading-link-anchor-tag):not(#tableOfContents *):not(#PostTaxonomy *) {
+
+    &:hover,
+    &:hover:visited {
       @apply text-primary-600
     }
+
     &:visited {
       @apply text-primary-700
     }
+
     @apply text-primary-500 underline underline-offset-2
   }
 
   @keyframes link-slide {
-  from {
-    transform: translate(0);
-  }
-  to {
-    transform:translate(32px)
-  }
+    from {
+      transform: translate(0);
+    }
+
+    to {
+      transform: translate(32px)
+    }
 
   }
-  
-  h2,h3,h4,h5,h6 {
-    &:has(.heading-link) {
-      &>.heading-link{
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &.heading-link-heading {
+      @apply flex items-center gap-2 scroll-mt-20;
+
+      & .heading-link-anchor-tag {
+        @apply flex flex-row h-fit;
+      }
+
+      & .heading-link-icon-svg {
+        @apply text-mono-300;
+      }
+
+      & .heading-link-hover-copy-text {
+        @apply hidden group-hover:block m-0 text-body ml-2 text-mono-300 font-light;
+      }
+
+      &>.heading-link {
         position: relative;
+
         &::before {
           top: 0;
           @apply absolute content-['#'] opacity-0 transition-all;
           transform: translateY(0.1em);
         }
+
         &:hover {
           &::before {
             transform: translate(-1ch, 0.1em);
@@ -300,10 +363,8 @@ article {
 
 
   &.fancy {
-    p + p {
+    p+p {
       @apply indent-6
     }
   }
 }
-
-

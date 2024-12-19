@@ -3,29 +3,69 @@ import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 import ThemeSwitcher from './ThemeSwitcher.astro';
 import Logo from "../components/Logo.astro"
+import Wordmark from './Wordmark.astro';
+import { Icon } from 'astro-icon/components';
 
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const logo = pathname != "" ? true : false
 ---
 
-<nav class="flex flex-row gap-4 p-8 items-center">
+<nav class="w-full relative flex flex-row gap-4 p-8 items-center">
   <a name="Home" class="mr-auto" href="/">
     {!logo && (
-      <h1 class="font-display text-2xl my-0 leading-none ">{SITE_TITLE}</h1>
-      <h2 class="font-display text-sm my-0">Emma Alexandria's Blog</h2>
+    <Wordmark/>
     )}
     {logo && (
     <div class="w-12 h-auto">
-<Logo/>
-
+      <Logo/>
     </div>
     )}
-        </a>
-		<ul class="font-display flex flex-row">
-			<HeaderLink href="/blog">Posts</HeaderLink>
-			<HeaderLink href="/contact">Contact</HeaderLink>
+  </a>
+  <button class="block md:hidden" id="menu-toggle"><Icon name="lucide:menu"/></button>
+  <ul class="px-8 md:px-0 header-items absolute top-full bg-mono-50  dark:bg-mono-950 md:bg-transparent dark:md:bg-transparent z-10 left-0 w-full md:w-fit shadow-md md:shadow-none md:static hidden md:flex font-display flex-col md:flex-row">
+    <HeaderLink href="/blog">Posts</HeaderLink>
+    <HeaderLink href="/contact">Contact</HeaderLink>
   </ul>
   <ThemeSwitcher/>
 </nav>
 
+
+<script>
+import anime from "animejs/lib/anime.es"
+let open = false
+const toggle = document.querySelector("#menu-toggle")
+const navItems = document.querySelector(".header-items")
+
+const toggleClasses = () => {
+  let addClass = open ? "flex" : "hidden"
+  let removeClass = open ? "hidden" : "flex"
+  navItems?.classList.add(addClass) 
+  navItems?.classList.remove(removeClass)
+}
+
+const toggleOpen = () => {
+  open = !open
+    if(open) {
+    anime({
+      targets: navItems,
+      top: ["50%", "100%"],
+      opacity: [0, 1],
+      duration: 100,
+      easing: 'easeInOutCubic' 
+    })
+    toggleClasses()
+  } else {
+    anime({
+      targets: navItems,
+      top: ["100%", "50%"],
+      opacity: [1, 0],
+      duration: 100,
+      easing: 'easeInOutCubic' 
+    })
+    setTimeout(toggleClasses, 100)
+  }
+  }
+
+toggle?.addEventListener("click", toggleOpen)
+</script>

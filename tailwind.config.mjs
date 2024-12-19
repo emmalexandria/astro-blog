@@ -1,3 +1,7 @@
+import { HEADER_LINK_CLASSES } from './src/consts';
+
+const headerSafeList = Object.values(HEADER_LINK_CLASSES)
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'selector',
@@ -11,7 +15,6 @@ export default {
       },
       fontSize: {
         body: ["1rem", { lineHeight: 1.6, letterSpacing: "0.04em" }],
-        mono: ["1rem", { lineHeight: 1.6, letterSpacing: "0.00em" }]
       },
       colors: {
         mono: {
@@ -52,5 +55,7 @@ export default {
       md: '1.5px',
       lg: '2px'
     }
-  }, plugins: [],
+  },
+  safelist: ['sr-only', ...headerSafeList],
+  plugins: [],
 }

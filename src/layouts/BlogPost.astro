@@ -12,7 +12,7 @@ const { title, description, pubDate, updatedDate, image, tags, imageAlt, heading
 ---
 
 <BaseLayout title={title} description={description}>
-    <article class="w-content mx-auto">
+    <article class="snap-y w-full md:w-content mx-auto">
     <div class="hero-image rounded-md overflow-clip">
       {image && <img src={image} alt={imageAlt} />}
     </div>

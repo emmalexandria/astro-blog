@@ -17,7 +17,7 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout title="All posts" description="All my posts">
-  <section class="w-content mx-auto">
+  <section class="w-full md:w-content mx-auto">
     <h1 class="text-6xl font-display font-bold mb-4">All posts</h1>
     <ul>
       {
