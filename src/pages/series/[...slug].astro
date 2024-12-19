@@ -1,0 +1,42 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import BlogCard from '../../components/blog/BlogCard.astro';
+
+export async function getStaticPaths() {
+  const series = await getCollection('series');
+  const posts = await getCollection('blog');
+  return series.map((s) => {
+    const filteredPosts = posts.filter((p) => p.data.series === s.data.name)
+    return {
+      params: {slug: s.id },
+      props: { posts: filteredPosts, series: s },
+    };
+  });
+}
+
+let {posts, series} = Astro.props
+let {slug} = Astro.params
+
+const orderedPosts = posts.sort((a, b) => {
+  return (b.data.index ?? posts.length) - (a.data.index ?? posts.length)
+})
+---
+
+<BaseLayout title={`Posts with the ${slug} tag`}>
+  <section class="w-content mx-auto">
+    <h1 class="text-6xl font-display font-bold mb-4">{series.data.name}</h1>
+    <p>{series.data.description}</p>
+    <ul>
+      {
+      orderedPosts.map((post, index) => (
+      <li>
+        <BlogCard part={post.data.index} imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+      </li>
+            ))
+      }
+    </ul>
+  </section>
+
+
+</BaseLayout>

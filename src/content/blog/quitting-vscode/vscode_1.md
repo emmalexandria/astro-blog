@@ -1,0 +1,8 @@
+---
+title: "You should stop using Visual Studio Code. Here's why."
+description: "In this part, we explore the reasons for switching away from VSCode."
+pubDate: 2024-12-19 
+tags: ["neovim"]
+series: "Quitting VSCode — the why and how"
+index: 0
+---

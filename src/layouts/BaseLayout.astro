@@ -2,6 +2,14 @@
 import BaseHead from "../components/BaseHead.astro"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
+import  SharedBanner from "../components/SharedBanner.svelte"
+
+import "../components/customElements"
+
+
+
+import {Icon} from "astro-icon/components"
+import { SHARED_BANNER_ID } from "../consts"
 
 let {title, description} = Astro.props
 ---
@@ -9,6 +17,7 @@ let {title, description} = Astro.props
 <!DOCTYPE html>
 <html lang="en" class="h-full scroll-smooth">
   <head>
+
     <BaseHead title={title} description={description} />
   </head>
   <body class="font-body h-full flex flex-col bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50">
@@ -17,6 +26,9 @@ let {title, description} = Astro.props
     </header>
     <main class="px-8 grow">
       <slot/>
+      <SharedBanner client:load>
+        <Icon slot="icon" name="lucide:x"/>
+      </SharedBanner>
     </main>
     <footer class="px-8 py-4 text-mono-700 dark:text-mono-300">
       <Footer />
@@ -52,3 +64,10 @@ let {title, description} = Astro.props
     </filter>
   </defs> </svg>
 </html>
+
+<script>
+import { initHeadingLinkHandlers } from "../headings";
+
+import "../components/customElements"
+initHeadingLinkHandlers()
+</script>

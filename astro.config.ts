@@ -16,8 +16,9 @@ import compressor from 'astro-compressor';
 import { latte, macchiato } from '@catppuccin/vscode';
 
 import { h } from 'hastscript'
-import { toString } from 'hast-util-to-string'
 import { fromHtml } from 'hast-util-from-html';
+
+import { transformerNotationDiff, transformerMetaHighlight, transformerNotationFocus } from "@shikijs/transformers"
 
 import icon from "astro-icon"
 
@@ -26,6 +27,7 @@ import icon from "astro-icon"
 import { getIconData, iconToHTML, iconToSVG, replaceIDs, type FullExtendedIconifyIcon, type IconifyIconBuildResult } from "@iconify/utils"
 import { icons } from "@iconify-json/lucide"
 import { HEADER_LINK_CLASSES } from './src/consts';
+
 
 ///Cast, we know this won't be null
 const linkIconData = getIconData(icons, 'link') as FullExtendedIconifyIcon
@@ -68,7 +70,12 @@ export default defineConfig({
         light: latte,
         //@ts-ignore
         dark: macchiato
-      }
+      },
+      transformers: [
+        transformerNotationFocus(),
+        transformerNotationDiff(),
+        transformerMetaHighlight()
+      ]
     }
   },
   integrations: [mdx(), sitemap(), tailwind(), svelte(), compress({ Image: false }), purgecss(), compressor(), icon()],

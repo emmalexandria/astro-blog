@@ -24,9 +24,9 @@ let {slug} = Astro.params
 <h1 class="text-4xl font-display font-bold mb-4">Posts tagged with <span class="font-mono">#{slug}</span></h1>
     <ul>
       {
-      posts.map((post: any) => (
+      posts.map((post: any, index) => (
       <li>
-        <BlogCard id={post.id} tags={post.data.tags} imagePath={post.data.image} altText={post.data.imageAlt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+        <BlogCard id={post.id} imageIdx={index} tags={post.data.tags} imagePath={post.data.image} altText={post.data.imageAlt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
       </li>
             ))
       }

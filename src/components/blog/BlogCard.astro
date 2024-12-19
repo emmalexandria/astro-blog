@@ -13,26 +13,29 @@ interface Props {
   description: string;
   date: Date;
   tags?: string[];
-  index?: number
+  imageIdx?: number
+  isSeries?: boolean;
+  part?: number;
 }
 
 
-let {id, imagePath, altText, title, description, date, tags,index=0}: Props = Astro.props
+let {id, imagePath, altText, title, description, date, tags, part,imageIdx=0, isSeries=false}: Props = Astro.props
 
-console.log(index)
-let loading: "eager" | "lazy" = index < 3 ? "eager" : "lazy"
+const loading: "eager" | "lazy" = imageIdx < 3 ? "eager" : "lazy"
+const href = isSeries ? `/blog/${id}` : `/series/${id}`
 ---
 
 <div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
-  <a  href={`/blog/${id}/`}>
+  <a  {href}>
     {imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
-  <h2 class="font-display text-xl">{title}</h2>
+    {part !== undefined && (<p class="font-body text-sm font-bold">Part {part}</p>)}  
+    <h2 class="font-display text-xl">{title}</h2>
   </a>
       <p class="text-sm italic">
         <FormattedDate date={date} />
       </p>
   <p class="mb-2">{description}</p>
-<LinkButton href={`/blog/${id}`}>Read more <Icon name="lucide:arrow-right"/></LinkButton>
+  <LinkButton {href}>Read more <Icon name="lucide:arrow-right"/></LinkButton>
   {tags && (
   <div class="flex flex-row gap-2 mt-2">
     <TagDisplay tags={tags}/>

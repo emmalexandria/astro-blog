@@ -2,7 +2,10 @@
 title: 'First post'
 description: 'Lorem ipsum dolor sit amet'
 pubDate: 'Jul 08 2022'
-image: 'blog-placeholder-3.jpg'
+image: 
+  src: 'blog-placeholder-3.jpg'
+  alt: "Placeholder image"
+  
 tags: ['test']
 ---
 

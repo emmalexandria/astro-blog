@@ -1,19 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
-
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import {Image, Picture} from "astro:assets";
-import type { ImageMetadata } from 'astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
+import { getPostsAndSeries } from '../../content.utils';
 
-
-const posts = (await getCollection('blog')).sort(
-	(a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-
+const items = await getPostsAndSeries()
 ---
 
 <BaseLayout title="All posts" description="All my posts">
@@ -21,9 +13,9 @@ const posts = (await getCollection('blog')).sort(
     <h1 class="text-6xl font-display font-bold mb-4">All posts</h1>
     <ul>
       {
-      posts.map((post: any, index: number) => (
+      items.map((post: any, index: number) => (
       <li>
-        <BlogCard {index} id={post.id} tags={post.data.tags} imagePath={post.data.image} altText={post.data.imageAlt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+        <BlogCard imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
       </li>
             ))
       }
