@@ -4,7 +4,7 @@ import FormattedDate from '../FormattedDate.astro';
 import TagDisplay from './TagDisplay.astro';
 import LinkButton from '../LinkButton.astro';
 import {Icon} from "astro-icon/components"
-import type { PostListItem } from '../../content.utils';
+import type { PostListItem, SeriesPost } from '../../content.utils';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -26,7 +26,7 @@ const contents = posts.map((p) => {
   return {
     title: p.data.title,
     description: p.data.description,
-    index: p.data.index,
+    index: (p as SeriesPost).index,
     href: `/blog/${p.id}`
   }
 })
@@ -51,16 +51,16 @@ const href = `/series/${id}`
       </p>
   <p class="mb-2">{description}</p>
   <h3 class="text-xl font-display">Parts</h3>
-  <ol class="list-decimal list-inside mb-4 flex flex-col gap-2">
+  <ol start={contents[0].index} class="list-decimal marker:font-bold marker:text-mono-400 marker:high-contrast:text-mono-900 marker:high-contrast:dark:text-mono-100 list- list-inside mb-4 flex flex-col gap-2">
   {contents.map((c) => (
   <li class="">
-    <a href={c.href}>
+    <a class="hover:underline transition-all underline-offset-4 decoration-transparent hover:underline-offset-2 hover:decoration-primary-500 decoration-2 motion-reduce:underline-offset-2" href={c.href}>
     {c.title}
     </a>
   </li>
     ))}
   </ol>
-  <LinkButton primary href={contents[0].href}>Read part {contents[0].index}<Icon name="lucide:arrow-right"/></LinkButton>
+  <LinkButton primary href={contents[0].href}>Start reading<Icon name="lucide:arrow-right"/></LinkButton>
     {tags && (
   <div class="flex flex-row gap-2 mt-2">
     <TagDisplay tags={tags}/>

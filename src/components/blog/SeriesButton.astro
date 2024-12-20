@@ -11,7 +11,7 @@ interface Props {
 
 let {next, title, href, index, otherExists} = Astro.props
 ---
-<a {href} class="flex flex-row items-center gap-1 text-mono-700 dark:text-mono-300" class:list={{'ml-auto': next && !otherExists}}  >
+<a {href} class="flex flex-row items-center gap-1 text-mono-700 dark:text-mono-300 high-contrast:text-mono-900 dark:high-contrast:text-mono-100" class:list={{'ml-auto': next && !otherExists}}  >
   {!next && (
   <Icon size={12} name="lucide:arrow-left"/>
   )}

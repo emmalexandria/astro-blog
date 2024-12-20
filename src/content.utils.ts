@@ -20,10 +20,6 @@ export interface SeriesPosts {
   posts: SeriesPost[]
 }
 
-const sortPostListByDate = (items: PostListItem[]) => {
-  items.sort((a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-}
-
 
 const seriesToPostListItem = (seriesPosts: SeriesPosts): PostListItem | undefined => {
   if (seriesPosts.posts.length === 0) {

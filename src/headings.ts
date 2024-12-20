@@ -1,12 +1,11 @@
 import type { MouseEventHandler } from "svelte/elements"
 import { mount } from "svelte"
 import Banner from "./components/Banner.svelte"
-import { HEADER_LINK_CLASSES } from "./consts"
 import { isSharedBannerOpen, sharedBannerContent } from "./stores"
 
 export const initHeadingLinkHandlers = () => {
   ///This is ugly but it works
-  const links = document.querySelectorAll<HTMLAnchorElement>(`a.${HEADER_LINK_CLASSES.anchor.split(" ")[0]}`)
+  const links = document.querySelectorAll<HTMLAnchorElement>(`.heading-link a`)
 
   links.forEach((l) => {
     l.addEventListener('click', (e) => {

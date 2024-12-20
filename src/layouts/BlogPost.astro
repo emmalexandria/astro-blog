@@ -19,22 +19,21 @@ interface Props {
 
 let { post, headings, series }: Props = Astro.props;
 
-let postVal;
+let postVal: SeriesPost;
 
 let nextPost, prevPost;
 if(series !== undefined) {
   postVal = post as SeriesPost
   const seriesPosts = await getSeriesPosts(series, await getCollection("blog"))
   if(seriesPosts) {
-    const otherPosts = seriesPosts.filter((p) => p === post).sort((a, b) => {
+    const sortedPosts = seriesPosts.sort((a, b) => {
       return (a.index) - (b.index)
     })
-    nextPost = otherPosts[postVal.index + 1]
-    prevPost = otherPosts[postVal.index - 1]
+    nextPost = sortedPosts[postVal.index + 1]
+    prevPost = sortedPosts[postVal.index - 1]
   }
 
 }
-
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
@@ -62,9 +61,7 @@ if(series !== undefined) {
             )
             }
           </div>
-          <div class="content">
             <Toc headings={headings}/>
-          </div>
           {series && (
           <SeriesButtons  next={nextPost} prev={prevPost}/>
           )}
@@ -73,7 +70,7 @@ if(series !== undefined) {
       </div>
 
     </div>
-    <div class="content">
+    <div class="markdown-content">
       <slot />
     </div>
   </article>

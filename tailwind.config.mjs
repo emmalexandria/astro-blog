@@ -2,8 +2,6 @@ import { HEADER_LINK_CLASSES } from './src/consts';
 import { themeVariants } from 'tailwindcss-theme-variants';
 import { darkTheme, getTwThemes, highContrastTheme, themes } from "./src/themes"
 
-const headerSafeList = Object.values(HEADER_LINK_CLASSES)
-
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'selector',
@@ -49,7 +47,9 @@ export default {
       spacing: {
         content: '70ch'
       },
-
+      listStyleType: {
+        roman: 'upper-roman'
+      }
     },
     borderWidth: {
       sm: '1px',
@@ -58,7 +58,7 @@ export default {
       lg: '2px'
     }
   },
-  safelist: ['sr-only', ...headerSafeList],
+  safelist: ['sr-only', 'heading-link'],
   plugins: [themeVariants({
     themes: getTwThemes([darkTheme.get(), highContrastTheme.get()])
   })],

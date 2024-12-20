@@ -135,53 +135,77 @@ body.dark .astro-code span {
   }
 }
 
-#tableOfContents {
-  & {
-    @apply font-body
-  }
+@layer components {
+  .toc-parent {
+    & {
+      @apply font-body;
+    }
 
-  ol:not(:first-child) {
-    @apply pl-4 border-l border-dashed border-l-mono-300 dark:border-l-mono-800
-  }
+    ol:not(:first-child) {
+      @apply pl-4 border-l border-dashed border-l-mono-300 dark:border-l-mono-800;
+    }
 
-  ol {
-    @apply list-decimal list-inside my-0;
-    @apply marker:font-bold
-  }
+    ol {
+      @apply list-decimal list-inside my-0;
+      @apply marker:font-bold;
+    }
 
-  li:not(:first-child) {
-    @apply my-2
-  }
+    li:not(:first-child) {
+      @apply my-2;
+    }
 
-  li:first-child {
-    @apply mb-2
-  }
+    li:first-child {
+      @apply mb-2;
+    }
 
-  li {
-    @apply transition-all
-  }
+    li {
+      @apply transition-all;
+    }
 
 
 
-  li:has(> a:hover) {
-    &::marker {
-      @apply text-primary-500
+    li:has(> a:hover) {
+      &::marker {
+        @apply text-primary-500;
+      }
+    }
+
+
+
+    ol ol {
+      @apply list-[lower-roman];
+    }
+
+    ol ol ol {
+      @apply list-[lower-latin];
     }
   }
 
-
-
-  ol ol {
-    @apply list-[lower-roman]
+  .toc-heading {
+    @apply text-3xl md:text-4xl font-display font-bold hover:squiggle
   }
 
-  ol ol ol {
-    @apply list-[lower-latin]
-  }
-}
+  .heading-link {
+    @apply flex items-center gap-2 scroll-mt-20;
 
-article {
-  .content {
+    & svg {
+      @apply text-mono-300 dark:text-mono-500 high-contrast:text-mono-900 dark:high-contrast:text-mono-100;
+    }
+  }
+
+  .post-date {
+    @apply italic high-contrast:font-bold text-sm text-mono-600 dark:text-mono-400 high-contrast:text-mono-900 dark:high-contrast:text-mono-100;
+  }
+
+  .title {
+    @apply text-4xl md:text-5xl squiggle leading-tight font-bold font-display;
+  }
+
+  .subtitle {
+    @apply text-xl md:text-2xl mt-0 text-mono-600 dark:text-mono-100 high-contrast:text-mono-900
+  }
+
+  .markdown-content {
     h2 {
       @apply text-3xl md:text-4xl mt-8
     }
@@ -214,27 +238,88 @@ article {
 
       @apply w-full mb-4 leading-tight font-bold font-display transition-all;
     }
-  }
 
-  p,
-  ol,
-  ul,
-  pre,
-  code {
-    @apply text-body max-w-content
-  }
+    p,
+    ol,
+    ul,
+    pre,
+    code {
+      @apply text-body max-w-content
+    }
 
-  p {
-    @apply text-body max-w-content mx-auto
-  }
+    p {
+      @apply text-body max-w-content mx-auto
+    }
 
-  h1.title {
-    @apply text-4xl md:text-5xl squiggle leading-tight font-bold font-display;
-  }
+    ul, ol {
+      @apply mb-6 ml-8
+    }
 
-  h2.subtitle {
-    @apply text-xl md:text-2xl mt-0 text-mono-600 dark:text-mono-100
+    ul ul, ol ol, ul ol, ol ul {
+      @apply mt-2 mb-2
+    }
+
+    li {
+      @apply mb-2
+    }
+
+    p+ul, p+ol {
+      @apply -mt-3
+    }
+
+    ul {
+      li {
+        @apply list-disc list-inside
+      }
+    }
+
+    pre {
+      &:hover {
+        @apply border-duotone-hover
+      }
+
+      @apply rounded overflow-clip p-4 mb-6 border border-duotone overflow-x-auto font-mono text-sm md:text-base transition-all dark:saturate-150
+    }
+
+    code:not(pre *) {
+      @apply bg-mono-100 dark:bg-mono-900 text-wrap break-all rounded-sm font-mono px-1 py-[0.10rem]
+    }
+
+    a:not(.heading-link *):not(.article-info *):not(#PostTaxonomy *) {
+
+      &:hover,
+      &:hover:visited {
+        @apply text-primary-600
+      }
+
+      &:visited {
+        @apply text-primary-700
+      }
+
+      @apply text-primary-500 underline underline-offset-2
+    }
+
+    @keyframes link-slide {
+      from {
+        transform: translate(0);
+      }
+
+      to {
+        transform: translate(32px)
+      }
+
+    }
+
+    &.fancy {
+      p+p {
+        @apply indent-6
+      }
+    }
   }
+}
+
+article {
+
 
   &.heading-center {
 
@@ -248,124 +333,7 @@ article {
     }
   }
 
-
-
-
-  time {
-    @apply italic text-sm text-mono-600 dark:text-mono-400
-  }
-
-
-  ul:not(#tableOfContents *):not(#PostTaxonomy *), ol:not(#tableOfContents *):not(#PostTaxonomy *) {
-    @apply mb-6 ml-8
-  }
-
-  ul ul, ol ol, ul ol, ol ul {
-    @apply mt-2 mb-2
-  }
-
-  li:not(#tableOfContents *):not(#PostTaxonomy, *) {
-    @apply mb-2
-  }
-
-  p+ul, p+ol {
-    @apply -mt-3
-  }
-
-  ul {
-    li {
-      @apply list-disc list-inside
-    }
-  }
-
-  pre {
-    &:hover {
-      @apply border-duotone-hover
-    }
-
-    @apply rounded overflow-clip p-4 mb-6 border border-duotone overflow-x-auto font-mono text-sm md:text-base transition-all dark:saturate-150
-  }
-
-  code:not(pre *) {
-    @apply bg-mono-100 dark:bg-mono-900 text-wrap break-all rounded-sm font-mono px-1 py-[0.10rem]
-  }
-
-
   hr {
     @apply border-t border-t-mono-300 dark:border-t-mono-800 my-8
-  }
-
-  a:not(.heading-link-anchor-tag):not(.article-info *):not(#PostTaxonomy *) {
-
-    &:hover,
-    &:hover:visited {
-      @apply text-primary-600
-    }
-
-    &:visited {
-      @apply text-primary-700
-    }
-
-    @apply text-primary-500 underline underline-offset-2
-  }
-
-  @keyframes link-slide {
-    from {
-      transform: translate(0);
-    }
-
-    to {
-      transform: translate(32px)
-    }
-
-  }
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    &.heading-link-heading {
-      @apply flex items-center gap-2 scroll-mt-20;
-
-      & .heading-link-anchor-tag {
-        @apply flex flex-row h-fit;
-      }
-
-      & .heading-link-icon-svg {
-        @apply text-mono-300;
-      }
-
-      & .heading-link-hover-copy-text {
-        @apply hidden group-hover:block m-0 text-body ml-2 text-mono-300 font-light;
-      }
-
-      &>.heading-link {
-        position: relative;
-
-        &::before {
-          top: 0;
-          @apply absolute content-['#'] opacity-0 transition-all;
-          transform: translateY(0.1em);
-        }
-
-        &:hover {
-          &::before {
-            transform: translate(-1ch, 0.1em);
-            opacity: 100%;
-          }
-        }
-      }
-    }
-  }
-
-
-
-
-
-  &.fancy {
-    p+p {
-      @apply indent-6
-    }
   }
 }

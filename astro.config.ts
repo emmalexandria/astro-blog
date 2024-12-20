@@ -9,10 +9,6 @@ import rehypeSlug from 'rehype-slug';
 
 import svelte from '@astrojs/svelte';
 
-import compress from 'astro-compress';
-import purgecss from 'astro-purgecss';
-import compressor from 'astro-compressor';
-
 import { latte, macchiato } from '@catppuccin/vscode';
 
 import { h } from 'hastscript'
@@ -26,7 +22,6 @@ import icon from "astro-icon"
 
 import { getIconData, iconToHTML, iconToSVG, replaceIDs, type FullExtendedIconifyIcon, type IconifyIconBuildResult } from "@iconify/utils"
 import { icons } from "@iconify-json/lucide"
-import { HEADER_LINK_CLASSES } from './src/consts';
 
 
 import robotsTxt from 'astro-robots-txt';
@@ -37,7 +32,7 @@ const linkIconData = getIconData(icons, 'link') as FullExtendedIconifyIcon
 const linkIconRenderData = iconToSVG(linkIconData, {
   height: 'auto'
 })
-const linkIconHTML = iconToHTML(replaceIDs(linkIconRenderData.body), { ...linkIconRenderData.attributes, class: HEADER_LINK_CLASSES.iconSVG })
+const linkIconHTML = iconToHTML(replaceIDs(linkIconRenderData.body), { ...linkIconRenderData.attributes })
 
 const SITE_ROOT = 'https://blog.emmalexandria.dev'
 
@@ -51,12 +46,9 @@ export default defineConfig({
     rehypePlugins: [rehypeSlug,
       [rehypeAutolinkHeadings,
         {
-          properties: {
-            class: HEADER_LINK_CLASSES.anchor
-          },
           behavior: 'append',
           headingProperties: {
-            class: HEADER_LINK_CLASSES.heading
+            class: 'heading-link'
           },
           content: (heading: any) => [
             AnchorLinkIcon,

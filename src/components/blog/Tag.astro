@@ -2,6 +2,6 @@
 let {tag} = Astro.props
 ---
 
-<a class="group font-mono text-mono-500 italic" href={`/blog/tags/${tag}`}>
+<a class="group font-mono text-mono-500 italic high-contrast:text-mono-800 dark:high-contrast:text-mono-200" href={`/blog/tags/${tag}`}>
 <span class="transition-all group-hover:text-primary-500">#</span>{tag}
 </a>
