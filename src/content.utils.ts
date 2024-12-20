@@ -1,9 +1,13 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import fs from "fs"
+import path from "path";
 
 type PostFrontmatter = CollectionEntry<"blog">["data"];
 
 export interface PostListItem {
   id: string,
+  isSeries: boolean
+  posts?: CollectionEntry<"blog">[]
   data: PostFrontmatter
 }
 
@@ -12,7 +16,6 @@ const sortPostListByDate = (items: PostListItem[]) => {
 }
 
 const getPostsOfSeries = (series: CollectionEntry<"series">, posts: CollectionEntry<"blog">[]) => {
-  console.log(posts.length)
   return posts.filter((p) => {
     return p.data.series === series.data.name
   })
@@ -28,15 +31,20 @@ const seriesToPostListItem = (series: CollectionEntry<"series">, posts: Collecti
     return (b.data.updatedDate ?? b.data.pubDate).valueOf() - (a.data.updatedDate ?? b.data.pubDate).valueOf()
   }).filter((d) => d !== undefined)[0]?.data.updatedDate
   const tags = seriesPosts.flatMap((p) => p.data.tags).filter((t) => t !== undefined)
+  const uniqueTags = tags.filter((t, i) => {
+    return tags.indexOf(t) === i
+  })
 
   return {
     id: series.id,
+    isSeries: true,
+    posts: seriesPosts.sort((a, b) => (a.data.index ?? 0) - (b.data.index ?? 0)),
     data: {
       title: series.data.name,
       description: series.data.description,
       pubDate,
       updatedDate,
-      tags,
+      tags: uniqueTags,
       image: series.data.image
     }
   }
@@ -44,8 +52,19 @@ const seriesToPostListItem = (series: CollectionEntry<"series">, posts: Collecti
 
 }
 
+export const dynamicPostFilter = (allPosts: CollectionEntry<'blog'>[]) => {
+  return allPosts.filter((post) => {
+    if (import.meta.env.PROD) {
+      return !post.data.draft
+    }
+
+    return true
+  })
+
+}
+
 export const getPostsAndSeries = async (): Promise<PostListItem[]> => {
-  const allPosts = await getCollection("blog")
+  const allPosts = dynamicPostFilter(await getCollection("blog"))
   const standalonePosts = allPosts.filter((p) => p.data.series === undefined)
   const series = await getCollection("series")
 
@@ -54,7 +73,8 @@ export const getPostsAndSeries = async (): Promise<PostListItem[]> => {
   }).filter((s) => s !== undefined)
   const postItems: PostListItem[] = standalonePosts.map((p) => {
     return {
-      ...p
+      ...p,
+      isSeries: false,
     }
   })
 
@@ -63,6 +83,8 @@ export const getPostsAndSeries = async (): Promise<PostListItem[]> => {
     ...postItems
   ]
 }
+
+
 
 
 

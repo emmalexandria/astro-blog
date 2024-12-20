@@ -1,40 +1,80 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
 import BaseLayout from './BaseLayout.astro';
 import type { Heading, HeadingLevel } from '../toc';
 import Toc from "../components/Toc.astro"
+import SeriesButtons from '../components/blog/SeriesButtons.astro';
+import ScrollToTop from "../components/ScrollToTop.svelte"
+import {Icon }from "astro-icon/components";
 
-type Props = CollectionEntry<'blog'>['data'] & {headings: HeadingLevel[]}
+interface Props {
+  post: CollectionEntry<'blog'>,
+  series?: CollectionEntry<'series'>,
+  headings: HeadingLevel[]
+}
 
-const { title, description, pubDate, updatedDate, image, tags, imageAlt, headings } = Astro.props;
+
+const { post, headings, series }: Props = Astro.props;
+
+
+let nextPost, prevPost;
+if(series) {
+  const posts = await getCollection("blog")
+  const otherPosts = posts.filter((p) => p.data.series === series.data.name).sort((a, b) => {
+    return (a.data.index ?? 0) - (b.data.index ?? 0)
+  })
+  if(post.data.index != undefined) {
+    nextPost = otherPosts[post.data.index + 1]
+    prevPost = otherPosts[post.data.index - 1]
+  }
+}
+
 ---
 
-<BaseLayout title={title} description={description}>
-    <article class="snap-y w-full md:w-content mx-auto">
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="snap-y w-full md:w-content mx-auto">
+    <div class="article-info">
     <div class="hero-image rounded-md overflow-clip">
-      {image && <img src={image} alt={imageAlt} />}
+      {post.data.image && (<img src={post.data.image.src} alt={post.data.image.alt} />)}
     </div>
     <div>
-      <div class="mt-4">
-        <h1 class="title mb-0">{title}</h1>
-        <div class="date">
-          <FormattedDate date={pubDate} />
-          {
-          updatedDate && (
-          <div class="last-updated-on">
-            Last updated on <FormattedDate date={updatedDate} />
-          </div>
-          )
-          }
-        </div>
+        <div class="mt-4">
+          <h1 class="title mb-0">{post.data.title}</h1>
+          {series != undefined && (
+          <span class="flex flex-row">
+            <p class="text-mono-700 dark:text-mono-300 m-0 text-sm">Part {post.data.index}: <a class="font-semibold" href={`/series/${series?.id}`}>{series?.data.name}</a></p>
 
-      <Toc headings={headings}/>
-        <hr />
+          </span>
+          )}
+          <div class="date">
+            <FormattedDate date={post.data.pubDate} />
+            {
+            post.data.updatedDate && (
+            <div class="last-updated-on">
+              Last updated on <FormattedDate date={post.data.updatedDate} />
+            </div>
+            )
+            }
+          </div>
+          <div class="content">
+            <Toc headings={headings}/>
+          </div>
+          {series && (
+          <SeriesButtons  next={nextPost} prev={prevPost}/>
+          )}
+          <hr class="mt-2" />
+        </div>
       </div>
+
     </div>
-    <slot />
+    <div class="content">
+      <slot />
+    </div>
   </article>
+  <ScrollToTop client:load>
+    <Icon size={24} name="lucide:arrow-up"/>
+  </ScrollToTop>
 </BaseLayout>
 

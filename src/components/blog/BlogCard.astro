@@ -14,15 +14,14 @@ interface Props {
   date: Date;
   tags?: string[];
   imageIdx?: number
-  isSeries?: boolean;
   part?: number;
 }
 
 
-let {id, imagePath, altText, title, description, date, tags, part,imageIdx=0, isSeries=false}: Props = Astro.props
+let {id, imagePath, altText, title, description, date, tags, part,imageIdx=0}: Props = Astro.props
 
 const loading: "eager" | "lazy" = imageIdx < 3 ? "eager" : "lazy"
-const href = isSeries ? `/blog/${id}` : `/series/${id}`
+const href = `/blog/${id}`  
 ---
 
 <div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
@@ -35,7 +34,7 @@ const href = isSeries ? `/blog/${id}` : `/series/${id}`
         <FormattedDate date={date} />
       </p>
   <p class="mb-2">{description}</p>
-  <LinkButton {href}>Read more <Icon name="lucide:arrow-right"/></LinkButton>
+  <LinkButton primary {href}>Read more <Icon name="lucide:arrow-right"/></LinkButton>
   {tags && (
   <div class="flex flex-row gap-2 mt-2">
     <TagDisplay tags={tags}/>

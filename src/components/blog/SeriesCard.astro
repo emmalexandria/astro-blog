@@ -1,0 +1,70 @@
+---
+import  Figure from '../Figure.astro';
+import FormattedDate from '../FormattedDate.astro';
+import TagDisplay from './TagDisplay.astro';
+import LinkButton from '../LinkButton.astro';
+import {Icon} from "astro-icon/components"
+import type { PostListItem } from '../../content.utils';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  id: string;
+  imagePath?: string;
+  altText?: string;
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+  imageIdx?: number;
+  posts?: CollectionEntry<"blog">[]
+}
+
+
+let {id, imagePath, altText, title, description, date, tags, imageIdx=0, posts = [] }: Props = Astro.props
+
+const contents = posts.map((p) => {
+  return {
+    title: p.data.title,
+    description: p.data.description,
+    index: p.data.index,
+    href: `/blog/${p.id}`
+  }
+})
+
+const loading: "eager" | "lazy" = imageIdx < 3 ? "eager" : "lazy"
+const href = `/series/${id}`
+---
+
+<div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
+  <a  {href}>
+    {imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
+    <h2 class="font-bold font-display text-2xl">{title}</h2>
+  </a>
+  <p class="text-sm flex flex-row gap-2">
+    <span class="font-bold">
+      Series 
+    </span>
+    <span class="italic">
+      <FormattedDate date={date} />
+
+    </span>
+      </p>
+  <p class="mb-2">{description}</p>
+  <h3 class="text-xl font-display">Parts</h3>
+  <ol class="list-decimal list-inside mb-4 flex flex-col gap-2">
+  {contents.map((c) => (
+  <li class="">
+    <a href={c.href}>
+    {c.title}
+    </a>
+  </li>
+    ))}
+  </ol>
+  <LinkButton primary href={contents[0].href}>Read part {contents[0].index}<Icon name="lucide:arrow-right"/></LinkButton>
+    {tags && (
+  <div class="flex flex-row gap-2 mt-2">
+    <TagDisplay tags={tags}/>
+  </div>
+  )}
+</div>
+

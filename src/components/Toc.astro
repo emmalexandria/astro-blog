@@ -8,6 +8,7 @@ type Props = {headings: HeadingLevel[]}
 let {headings}: Props = Astro.props
 ---
 
+{headings.length > 0 && (
 <h2 class="mb-0 mt-4">Table of Contents</h2>
 <div id="tableOfContents">
 <ol class="my-0">
@@ -21,3 +22,6 @@ let {headings}: Props = Astro.props
 
   </ol>
 </div>
+
+)}
+

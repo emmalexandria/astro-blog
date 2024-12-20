@@ -1,4 +1,6 @@
 import { HEADER_LINK_CLASSES } from './src/consts';
+import { themeVariants } from 'tailwindcss-theme-variants';
+import { darkTheme, getTwThemes, highContrastTheme, themes } from "./src/themes"
 
 const headerSafeList = Object.values(HEADER_LINK_CLASSES)
 
@@ -57,5 +59,7 @@ export default {
     }
   },
   safelist: ['sr-only', ...headerSafeList],
-  plugins: [],
+  plugins: [themeVariants({
+    themes: getTwThemes([darkTheme.get(), highContrastTheme.get()])
+  })],
 }

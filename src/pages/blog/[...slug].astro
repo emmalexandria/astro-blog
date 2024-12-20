@@ -4,21 +4,38 @@ import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
 import {nestHeadings} from "../../toc"
 import BlogImage from '../../components/blog/BlogImage.astro';
+import {dynamicPostFilter} from "../../content.utils"
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post: any) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
-}
-type Props = CollectionEntry<'blog'>;
+  const posts = dynamicPostFilter(await getCollection('blog'));
+  const series: CollectionEntry<"series">[] = await getCollection('series');
 
-const post = Astro.props;
+  return posts.map((post) => {
+    const filteredSeries = post.data.series ? series.filter((s) => post.data.series === s.data.name) : undefined
+    let postSeries;
+    if(filteredSeries) {
+      postSeries = filteredSeries[0]
+    }
+    return {
+		params: { slug: post.id },
+      props: {
+        post,
+        series: postSeries
+      }
+    }
+  });
+}
+
+interface Props {
+  post: CollectionEntry<"blog">,
+  series?: CollectionEntry<"series">
+}
+
+const {post, series} = Astro.props;
 const postRender = await render(post);
 
 ---
 
-<BlogPost {...post.data} headings={nestHeadings(postRender.headings)}>
+<BlogPost {post} headings={nestHeadings(postRender.headings)} {series}>
   <postRender.Content components={{img: BlogImage}} />
 </BlogPost>

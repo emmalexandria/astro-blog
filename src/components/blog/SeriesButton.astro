@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  next: boolean,
+  otherExists: boolean
+  title: string,
+  href: string,
+  index: number
+}
+
+let {next, title, href, index, otherExists} = Astro.props
+---
+<a {href} class="flex flex-row items-center gap-1 text-mono-700 dark:text-mono-300" class:list={{'ml-auto': next && !otherExists}}  >
+  {!next && (
+  <Icon size={12} name="lucide:arrow-left"/>
+  )}
+  <span class="flex flex-col max-w-[20ch] ">
+    <p class="m-0 text-sm">
+      Part {index}
+    </p>
+  </span>
+  {next && (
+  <Icon size={12} name="lucide:arrow-right"/>
+  )}
+
+</a>
+

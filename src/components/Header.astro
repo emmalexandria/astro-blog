@@ -1,10 +1,13 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
-import ThemeSwitcher from './ThemeSwitcher.astro';
+import ThemeSwitcher from './ThemeSwitcher.svelte';
+import ThemeSwitch from "./ThemeSwitch.svelte"
 import Logo from "../components/Logo.astro"
 import Wordmark from './Wordmark.astro';
 import { Icon } from 'astro-icon/components';
+
+import {darkTheme, highContrastTheme} from "../themes"
 
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
@@ -27,7 +30,16 @@ const logo = pathname != "" ? true : false
     <HeaderLink href="/blog">Posts</HeaderLink>
     <HeaderLink href="/contact">Contact</HeaderLink>
   </ul>
-  <ThemeSwitcher/>
+  <ThemeSwitcher>
+    <ThemeSwitch title="Toggle dark mode" client:load themeName="dark">
+      <Icon name="lucide:sun" slot="activeIcon"/>
+      <Icon name="lucide:moon" slot="inactiveIcon"/>
+    </ThemeSwitch>
+    <ThemeSwitch title="Toggle high contrast" client:load themeName="high-contrast">
+      <Icon name="lucide:contrast" slot="inactiveIcon"/>
+      <Icon name="lucide:blend" slot="activeIcon"/>
+    </ThemeSwitch>
+  </ThemeSwitcher>
 </nav>
 
 
@@ -47,7 +59,7 @@ const toggleClasses = () => {
 
 const toggleOpen = () => {
   open = !open
-    if(open) {
+  if(open) {
     anime({
       targets: navItems,
       top: ["50%", "100%"],
@@ -66,7 +78,7 @@ const toggleOpen = () => {
     })
     setTimeout(toggleClasses, 100)
   }
-  }
+}
 
 toggle?.addEventListener("click", toggleOpen)
 </script>

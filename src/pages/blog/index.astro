@@ -3,7 +3,8 @@ import FormattedDate from '../../components/FormattedDate.astro';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
-import { getPostsAndSeries } from '../../content.utils';
+import { getPostsAndSeries, type PostListItem } from '../../content.utils';
+import SeriesCard from '../../components/blog/SeriesCard.astro';
 
 const items = await getPostsAndSeries()
 ---
@@ -13,11 +14,18 @@ const items = await getPostsAndSeries()
     <h1 class="text-6xl font-display font-bold mb-4">All posts</h1>
     <ul>
       {
-      items.map((post: any, index: number) => (
+      items.map((post: PostListItem, index: number) => 
+      post.isSeries ? (
+      <li>
+        <SeriesCard posts={post.posts} imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate} /> 
+      </li>
+      ) : (
       <li>
         <BlogCard imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
       </li>
-            ))
+      )
+
+      )
       }
     </ul>
   </section>

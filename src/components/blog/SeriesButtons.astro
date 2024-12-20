@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import SeriesButton from './SeriesButton.astro'
+
+interface Props {
+  next?: CollectionEntry<"blog">,
+  prev?: CollectionEntry<"blog"> 
+}
+
+const {next, prev, } = Astro.props
+---
+
+<div class="flex flex-row rounded items-end mt-4 justify-between" >
+    {prev != undefined && (
+  <SeriesButton otherExists={next != undefined} href={`/blog/${prev.id}`} next={false} title={prev.data.title} index={prev.data.index ?? 0}/>
+  )}
+    {next != undefined && (
+  <SeriesButton otherExists={prev != undefined} href={`/blog/${next.id}`} next={true} title={next.data.title} index={next.data.index ?? 0}/>
+    )}
+
+
+</div>
+

@@ -29,6 +29,9 @@ import { icons } from "@iconify-json/lucide"
 import { HEADER_LINK_CLASSES } from './src/consts';
 
 
+import robotsTxt from 'astro-robots-txt';
+
+
 ///Cast, we know this won't be null
 const linkIconData = getIconData(icons, 'link') as FullExtendedIconifyIcon
 const linkIconRenderData = iconToSVG(linkIconData, {
@@ -36,13 +39,14 @@ const linkIconRenderData = iconToSVG(linkIconData, {
 })
 const linkIconHTML = iconToHTML(replaceIDs(linkIconRenderData.body), { ...linkIconRenderData.attributes, class: HEADER_LINK_CLASSES.iconSVG })
 
+const SITE_ROOT = 'https://blog.emmalexandria.dev'
 
 
 const AnchorLinkIcon = fromHtml(linkIconHTML)
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://emmalexandria.dev',
+  site: SITE_ROOT,
   markdown: {
     rehypePlugins: [rehypeSlug,
       [rehypeAutolinkHeadings,
@@ -56,10 +60,6 @@ export default defineConfig({
           },
           content: (heading: any) => [
             AnchorLinkIcon,
-            h(
-              `p.${HEADER_LINK_CLASSES.hoverCopyText}`,
-              'Click to copy'
-            )
           ]
         }
       ]
@@ -78,7 +78,7 @@ export default defineConfig({
       ]
     }
   },
-  integrations: [mdx(), sitemap(), tailwind(), svelte(), compress({ Image: false }), purgecss(), compressor(), icon()],
+  integrations: [mdx(), sitemap(), robotsTxt(), tailwind(), svelte(), icon()],
   experimental: {
     responsiveImages: true
   }

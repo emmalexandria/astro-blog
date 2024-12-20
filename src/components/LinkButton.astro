@@ -1,10 +1,11 @@
 ---
 interface Props {
   href: string;
+  primary?: boolean
 }
-let {href}: Props = Astro.props
+let {href, primary=false}: Props = Astro.props
 ---
 
-<a {href} class="flex flex-row items-center gap-2 transition-all block w-fit font-bold text-sm px-2 py-1 border border-shadow-primary hover:border-shadow-primary-high rounded ">
+<a {href} class="flex flex-row items-center gap-2 transition-all w-fit px-2 py-1  font-bold text-sm rounded " class:list={{"border border-shadow-primary hover:border-shadow-primary-high": primary, "border border-mono-300 dark:border-mono-50": !primary   }}>
   <slot/>
 </a>

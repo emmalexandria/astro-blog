@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   return uniqueTags.map((tag) => {
     const filteredPosts = posts.filter((post: any) => post.data.tags?.includes(tag));
     return {
-      params: {slug: tag },
+      params: { slug: tag },
       props: { posts: filteredPosts},
     };
   });
@@ -26,7 +26,7 @@ let {slug} = Astro.params
       {
       posts.map((post: any, index) => (
       <li>
-        <BlogCard id={post.id} imageIdx={index} tags={post.data.tags} imagePath={post.data.image} altText={post.data.imageAlt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+        <BlogCard id={post.id} imageIdx={index} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
       </li>
             ))
       }
