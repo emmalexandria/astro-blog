@@ -14,7 +14,7 @@ import { latte, macchiato } from '@catppuccin/vscode';
 import { h } from 'hastscript'
 import { fromHtml } from 'hast-util-from-html';
 
-import { transformerNotationDiff, transformerMetaHighlight, transformerNotationFocus } from "@shikijs/transformers"
+import { transformerNotationDiff, transformerMetaHighlight, transformerNotationFocus, transformerMetaWordHighlight } from "@shikijs/transformers"
 
 import icon from "astro-icon"
 
@@ -61,7 +61,7 @@ export default defineConfig({
         //@ts-ignore
         light: latte,
         //@ts-ignore
-        dark: macchiato
+        dark: 'material-theme-darker'
       },
       transformers: [
         transformerNotationFocus(),

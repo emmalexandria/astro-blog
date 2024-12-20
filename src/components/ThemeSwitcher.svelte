@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, type Snippet } from "svelte";
-  import { themes, initTheme } from "../themes";
+  import { themes, initTheme } from "../lib/themes";
 
   interface Props {
     children: Snippet;

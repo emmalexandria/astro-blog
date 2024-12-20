@@ -1,6 +1,5 @@
-import { HEADER_LINK_CLASSES } from './src/consts';
 import { themeVariants } from 'tailwindcss-theme-variants';
-import { darkTheme, getTwThemes, highContrastTheme, themes } from "./src/themes"
+import { darkTheme, getTwThemes, highContrastTheme, themes } from "./src/lib/themes"
 
 /** @type {import('tailwindcss').Config} */
 export default {

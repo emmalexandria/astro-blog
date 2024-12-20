@@ -4,10 +4,6 @@ import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
 import SharedBanner from "../components/SharedBanner.svelte"
 
-import "../components/customElements"
-
-
-
 import {Icon} from "astro-icon/components"
 import { SHARED_BANNER_ID } from "../consts"
 
@@ -65,8 +61,7 @@ let {title, description} = Astro.props
 </html>
 
 <script>
-import { initHeadingLinkHandlers } from "../headings";
+import { initHeadingLinkHandlers } from "../lib/headings";
 
-import "../components/customElements"
 initHeadingLinkHandlers()
 </script>

@@ -3,12 +3,12 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
 import BaseLayout from './BaseLayout.astro';
-import type { Heading, HeadingLevel } from '../toc';
+import type { Heading, HeadingLevel } from '../lib/toc';
 import Toc from "../components/Toc.astro"
 import SeriesButtons from '../components/blog/SeriesButtons.astro';
 import ScrollToTop from "../components/ScrollToTop.svelte"
 import {Icon }from "astro-icon/components";
-import { getSeriesPosts, type SeriesPost } from '../content.utils';
+import { getSeriesPosts, type SeriesPost } from '../lib/content.utils';
 
 interface Props {
   post: SeriesPost | CollectionEntry<"blog">,
@@ -47,7 +47,7 @@ if(series !== undefined) {
           <h1 class="title mb-0">{post.data.title}</h1>
           {series != undefined && (
           <span class="flex flex-row">
-            <p class="text-mono-700 dark:text-mono-300 m-0 text-sm">Part {(post as SeriesPost).index}: <a class="font-semibold" href={`/series/${series?.id}`}>{series?.data.name}</a></p>
+            <p class="text-mono-700 dark:text-mono-300 high-contrast:text-mono-900 dark:high-contrast:text-mono-100 m-0 text-sm">Part {(post as SeriesPost).index}: <a class="font-semibold" href={`/series/${series?.id}`}>{series?.data.name}</a></p>
 
           </span>
           )}

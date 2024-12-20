@@ -2,7 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import BlogCard from '../../components/blog/BlogCard.astro';
-import { dynamicPostFilter, getSeriesPosts, type SeriesPost, type SeriesPosts } from '../../content.utils';
+import { dynamicPostFilter, getSeriesPosts, type SeriesPost, type SeriesPosts } from '../../lib/content.utils';
 
 export async function getStaticPaths() {
   const allPosts = dynamicPostFilter(await getCollection('blog'));

@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body.dark .astro-code,
-body.dark .astro-code span {
+html.dark .astro-code,
+html.dark .astro-code span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
   /* Optional, if you also want font styles */
@@ -186,7 +186,7 @@ body.dark .astro-code span {
   }
 
   .heading-link {
-    @apply flex items-center gap-2 scroll-mt-20;
+    @apply flex flex-row items-center gap-2 scroll-mt-20;
 
     & svg {
       @apply text-mono-300 dark:text-mono-500 high-contrast:text-mono-900 dark:high-contrast:text-mono-100;
@@ -202,7 +202,7 @@ body.dark .astro-code span {
   }
 
   .subtitle {
-    @apply text-xl md:text-2xl mt-0 text-mono-600 dark:text-mono-100 high-contrast:text-mono-900
+    @apply text-xl md:text-2xl mt-0 text-mono-600 dark:text-mono-200 high-contrast:text-mono-900 high-contrast:dark:text-mono-100;
   }
 
   .markdown-content {
@@ -237,6 +237,31 @@ body.dark .astro-code span {
       }
 
       @apply w-full mb-4 leading-tight font-bold font-display transition-all;
+    }
+
+    table {
+      @apply border border-mono-900 dark:border-mono-100 table-auto mb-4;
+
+      thead {
+        tr {
+          @apply border-b border-b-mono-900 dark:border-b-mono-100 divide-mono-900 dark:divide-mono-100 divide-x;
+        }
+      }
+
+
+
+      tr:not(thead *) {
+        @apply divide-mono-300 divide-x;
+
+        &:not(:last-child) {
+          @apply border-b border-mono-300;
+        }
+      }
+
+      td,
+      th {
+        @apply p-2;
+      }
     }
 
     p,

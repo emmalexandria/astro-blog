@@ -1,6 +1,3 @@
-import type { MouseEventHandler } from "svelte/elements"
-import { mount } from "svelte"
-import Banner from "./components/Banner.svelte"
 import { isSharedBannerOpen, sharedBannerContent } from "./stores"
 
 export const initHeadingLinkHandlers = () => {

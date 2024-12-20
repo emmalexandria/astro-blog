@@ -1,6 +1,6 @@
 <script lang="ts">
   import Banner from "./Banner.svelte";
-  import { isSharedBannerOpen, sharedBannerContent } from "../stores";
+  import { isSharedBannerOpen, sharedBannerContent } from "../lib/stores";
   interface Props {
     id: string;
   }

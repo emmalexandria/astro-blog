@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, type Snippet } from "svelte";
-  import { setThemeActive, themes } from "../themes";
+  import { setThemeActive, themes } from "../lib/themes";
   import { fade, fly } from "svelte/transition";
 
   interface Props {

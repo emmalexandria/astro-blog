@@ -3,7 +3,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
-import { getPostsAndSeries, type PostListItem } from '../../content.utils';
+import { getPostsAndSeries, type PostListItem } from '../../lib/content.utils';
 import SeriesCard from '../../components/blog/SeriesCard.astro';
 
 const items = await getPostsAndSeries()

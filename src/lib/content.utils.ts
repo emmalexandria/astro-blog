@@ -1,5 +1,6 @@
-import { getCollection, type CollectionEntry, type DataEntryMap } from "astro:content";
+import { defineCollection, getCollection, z, type CollectionEntry, type DataEntryMap } from "astro:content";
 import fs, { Dirent } from "fs"
+import { glob, type Loader } from "astro/loaders";
 import path from "path";
 
 type PostFrontmatter = CollectionEntry<"blog">["data"];
@@ -157,7 +158,6 @@ export const getSeriesPostList = async (s: CollectionEntry<"series">, posts: Col
     posts: await getSeriesPosts(s, posts) ?? []
   }
 }
-
 
 
 

@@ -2,9 +2,9 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
-import {nestHeadings} from "../../toc"
+import {nestHeadings} from "../../lib/toc"
 import BlogImage from '../../components/blog/BlogImage.astro';
-import {dynamicPostFilter, getSeriesPostList, getSeriesPosts, seperatePosts, type SeriesPost} from "../../content.utils"
+import {dynamicPostFilter, getSeriesPostList, getSeriesPosts, seperatePosts, type SeriesPost} from "../../lib/content.utils"
 
 export async function getStaticPaths() {
   const posts = dynamicPostFilter(await getCollection('blog'));
@@ -13,24 +13,30 @@ export async function getStaticPaths() {
   const {seriesPostList, standalonePosts} = await seperatePosts(series, posts) 
 
   let retValue = [];
-  retValue.push(...seriesPostList.flatMap((sp) => {
-    return sp.posts.map((p) => {
-      return {
-        params: {slug: p.id},
-        props: {post: p, series: sp.series}
-      }
-    })
-  }))
-
-
-  retValue.push(...standalonePosts.map((p) => {
+  return posts.map((p) => {
     return {
       params: {slug: p.id},
-      props: {post: p, series: undefined}
+      props: {post: p}
     }
-  }))
-  
-  return retValue
+  })
+  // retValue.push(...seriesPostList.flatMap((sp) => {
+  //   return sp.posts.map((p) => {
+  //     return {
+  //       params: {slug: p.id},
+  //       props: {post: p, series: sp.series}
+  //     }
+  //   })
+  // }))
+  //
+  //
+  // retValue.push(...standalonePosts.map((p) => {
+  //   return {
+  //     params: {slug: p.id},
+  //     props: {post: p, series: undefined}
+  //   }
+  // }))
+
+
 }
 
 interface Props {

@@ -15,7 +15,6 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-import { ClientRouter } from 'astro:transitions';
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 ---
 
@@ -53,7 +52,7 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <script>
-import { initTheme, themes } from "../themes";
+import { initTheme, themes } from "../lib/themes";
 themes.forEach((t) => {
   initTheme(t)
 })
