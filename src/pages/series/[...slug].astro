@@ -2,25 +2,31 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import BlogCard from '../../components/blog/BlogCard.astro';
-import { dynamicPostFilter } from '../../content.utils';
+import { dynamicPostFilter, getSeriesPosts, type SeriesPost, type SeriesPosts } from '../../content.utils';
 
 export async function getStaticPaths() {
-  const series = await getCollection('series');
-  const posts = dynamicPostFilter(await getCollection('blog'));
-  return series.map((s) => {
-    const filteredPosts = posts.filter((p) => p.data.series === s.data.name)
+  const allPosts = dynamicPostFilter(await getCollection('blog'));
+  const series = await getCollection('series')
+  
+  return await Promise.all(series.map(async (s) => {
+    const seriesPosts = await getSeriesPosts(s, allPosts) 
     return {
       params: {slug: s.id },
-      props: { posts: filteredPosts, series: s },
+      props: { posts: seriesPosts, series: s },
     };
-  });
+  }));
+}
+
+interface Props {
+  posts: SeriesPost[],
+  series: CollectionEntry<"series">
 }
 
 let {posts, series} = Astro.props
 let {slug} = Astro.params
-
+console.log(posts)
 const orderedPosts = posts.sort((a, b) => {
-  return (a.data.index ?? posts.length) - (b.data.index ?? posts.length)
+  return (a.index ) - (b.index)
 })
 ---
 
@@ -32,7 +38,7 @@ const orderedPosts = posts.sort((a, b) => {
       {
       orderedPosts.map((post, index) => (
       <li>
-        <BlogCard part={post.data.index} imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+        <BlogCard part={post.index} imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
       </li>
             ))
       }

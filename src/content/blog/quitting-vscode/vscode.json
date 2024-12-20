@@ -1,5 +1,5 @@
 {
   "name": "Quitting VSCode — the why and how",
-  "description": "This multi-part series will take you from VSCode to Neovim through incremental changes to VSCode's configuration.",
+  "description": "This multi-part series will take you from VSCode to Neovim through incremental changes to VSCode's configuration. It culminates in a switch to LazyVim.",
   "slug": "quitting-vscode"
 }

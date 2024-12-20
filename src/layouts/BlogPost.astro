@@ -8,27 +8,31 @@ import Toc from "../components/Toc.astro"
 import SeriesButtons from '../components/blog/SeriesButtons.astro';
 import ScrollToTop from "../components/ScrollToTop.svelte"
 import {Icon }from "astro-icon/components";
+import { getSeriesPosts, type SeriesPost } from '../content.utils';
 
 interface Props {
-  post: CollectionEntry<'blog'>,
+  post: SeriesPost | CollectionEntry<"blog">,
   series?: CollectionEntry<'series'>,
   headings: HeadingLevel[]
 }
 
 
-const { post, headings, series }: Props = Astro.props;
+let { post, headings, series }: Props = Astro.props;
 
+let postVal;
 
 let nextPost, prevPost;
-if(series) {
-  const posts = await getCollection("blog")
-  const otherPosts = posts.filter((p) => p.data.series === series.data.name).sort((a, b) => {
-    return (a.data.index ?? 0) - (b.data.index ?? 0)
-  })
-  if(post.data.index != undefined) {
-    nextPost = otherPosts[post.data.index + 1]
-    prevPost = otherPosts[post.data.index - 1]
+if(series !== undefined) {
+  postVal = post as SeriesPost
+  const seriesPosts = await getSeriesPosts(series, await getCollection("blog"))
+  if(seriesPosts) {
+    const otherPosts = seriesPosts.filter((p) => p === post).sort((a, b) => {
+      return (a.index) - (b.index)
+    })
+    nextPost = otherPosts[postVal.index + 1]
+    prevPost = otherPosts[postVal.index - 1]
   }
+
 }
 
 ---
@@ -36,15 +40,15 @@ if(series) {
 <BaseLayout title={post.data.title} description={post.data.description}>
   <article class="snap-y w-full md:w-content mx-auto">
     <div class="article-info">
-    <div class="hero-image rounded-md overflow-clip">
-      {post.data.image && (<img src={post.data.image.src} alt={post.data.image.alt} />)}
-    </div>
-    <div>
+      <div class="hero-image rounded-md overflow-clip">
+        {post.data.image && (<img src={post.data.image.src} alt={post.data.image.alt} />)}
+      </div>
+      <div>
         <div class="mt-4">
           <h1 class="title mb-0">{post.data.title}</h1>
           {series != undefined && (
           <span class="flex flex-row">
-            <p class="text-mono-700 dark:text-mono-300 m-0 text-sm">Part {post.data.index}: <a class="font-semibold" href={`/series/${series?.id}`}>{series?.data.name}</a></p>
+            <p class="text-mono-700 dark:text-mono-300 m-0 text-sm">Part {(post as SeriesPost).index}: <a class="font-semibold" href={`/series/${series?.id}`}>{series?.data.name}</a></p>
 
           </span>
           )}
