@@ -14,7 +14,7 @@ import { latte, macchiato } from '@catppuccin/vscode';
 import { h } from 'hastscript'
 import { fromHtml } from 'hast-util-from-html';
 
-import { transformerNotationDiff, transformerMetaHighlight, transformerNotationFocus, transformerMetaWordHighlight } from "@shikijs/transformers"
+import { transformerNotationDiff, transformerMetaHighlight, transformerNotationFocus, transformerMetaWordHighlight, transformerNotationHighlight, transformerRenderWhitespace, transformerNotationWordHighlight } from "@shikijs/transformers"
 
 import icon from "astro-icon"
 
@@ -63,10 +63,15 @@ export default defineConfig({
         //@ts-ignore
         dark: 'material-theme-darker'
       },
+      defaultColor: false,
       transformers: [
         transformerNotationFocus(),
         transformerNotationDiff(),
-        transformerMetaHighlight()
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+        transformerMetaHighlight(),
+        transformerNotationFocus(),
+        transformerRenderWhitespace()
       ]
     }
   },

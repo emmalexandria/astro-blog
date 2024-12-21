@@ -1,7 +1,4 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
-
 import "@fontsource-variable/vollkorn"
 import "@fontsource-variable/exo-2"
 import "@fontsource/overpass-mono"
@@ -51,6 +48,9 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+
+<!-- Init themes in the head to prevent FUC -->
+<!-- Can't be sourced from a file, otherwise the network request will cause FUC -->
 <script>
 import { initTheme, themes } from "../lib/themes";
 themes.forEach((t) => {

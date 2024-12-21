@@ -14,11 +14,12 @@ interface Props {
   date: Date;
   tags?: string[];
   imageIdx?: number
-  part?: number;
+	part?: number;
+	pinned?: boolean
 }
 
 
-let {id, imagePath, altText, title, description, date, tags, part,imageIdx=0}: Props = Astro.props
+let {id, imagePath, altText, title, description, date, tags, part,imageIdx=0, pinned = false}: Props = Astro.props
 
 const loading: "eager" | "lazy" = imageIdx < 3 ? "eager" : "lazy"
 const href = `/blog/${id}`  
@@ -28,7 +29,15 @@ const href = `/blog/${id}`
   <a  {href}>
     {imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
     {part !== undefined && (<p class="font-body text-sm font-bold">Part {part}</p>)}  
-    <h2 class="font-display text-xl">{title}</h2>
+    <div class="flex flex-row items-center justify-between">
+			<h2 class="font-bold font-display text-2xl">{title}</h2>
+			{pinned === true && (
+			<span class="flex flex-row items-center gap-1">
+				<p class="text-sm text-mono-600 dark:text-mono-300 high-contrast:text-mono-800 high-contrast:font-medium dark:high-contrast:text-mono-100 ">Pinned</p>
+				<Icon class="text-primary-500 stroke-2" name="lucide:pin"	/>
+			</span>
+			)}
+		</div>
   </a>
       <p class="text-sm italic">
         <FormattedDate date={date} />

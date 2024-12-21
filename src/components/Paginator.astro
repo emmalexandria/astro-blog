@@ -1,0 +1,27 @@
+---
+import {Icon} from "astro-icon/components";
+
+interface Props {
+	first?: string,
+	prev?: string,
+	current: number,
+	total: number
+	next?: string,
+	last?: string
+}
+
+
+let {first, prev, current, next, last, total} = Astro.props
+---
+
+<div class="flex items-center mx-auto border gap-4 w-fit p-2 rounded border-mono-200 dark:border-mono-600">
+	<span class="flex flex-row">
+		{first && <a href={first}><Icon name="lucide:chevron-first"/></a>}
+		{prev && <a href={prev}><Icon name="lucide:chevron-left"/></a>}
+	</span>
+	<p class:list={{"ml-auto": (next || last) && !(first && prev)}}>{current} / {total}</p>
+	<span class="flex flex-row">
+		{next && <a href={next}><Icon name="lucide:chevron-right"/></a>}
+		{last && <a href={last}><Icon name="lucide:chevron-last"/></a>}
+	</span>
+</div>

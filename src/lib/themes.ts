@@ -9,14 +9,13 @@ export interface Theme {
   key: string,
   name: string
   variant: ThemeVariant,
+  inactiveVariant?: ThemeVariant
   defaultStrategy: keyof ThemeVariant
   default: boolean
   active?: boolean
 }
 
 export type ThemeStore = MapStore<Theme> | PreinitializedMapStore<Theme>
-
-
 
 export const getTwThemes = (themes: Theme[]) => {
   const map = new Map()
@@ -34,6 +33,10 @@ export const darkTheme: ThemeStore = map({
   variant: {
     selector: ".dark",
     mediaQuery: '(prefers-color-scheme: dark)'
+  },
+  inactiveVariant: {
+    selector: ".light",
+    mediaQuery: '(prefers-color-scheme: light)'
   },
   defaultStrategy: "selector",
   default: false
@@ -71,10 +74,17 @@ export const setThemeActive = (theme: ThemeStore, active: boolean) => {
 export const setThemeSelector = (theme: Theme, active: boolean, element: HTMLElement = document.documentElement) => {
   if (theme.defaultStrategy == "selector" && theme.variant.selector) {
     const className = theme.variant.selector.substring(1, theme.variant.selector.length)
+    const inactiveClassName = theme.inactiveVariant?.selector?.substring(1, theme.inactiveVariant.selector.length)
     if (active) {
       element.classList.add(className)
+      if (inactiveClassName) {
+        element.classList.remove(inactiveClassName)
+      }
     } else {
       element.classList.remove(className)
+      if (inactiveClassName) {
+        element.classList.add(inactiveClassName)
+      }
     }
   }
 }

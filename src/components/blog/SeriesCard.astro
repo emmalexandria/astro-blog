@@ -16,11 +16,12 @@ interface Props {
   date: Date;
   tags?: string[];
   imageIdx?: number;
-  posts?: CollectionEntry<"blog">[]
+	posts?: CollectionEntry<"blog">[]
+	pinned?: boolean
 }
 
 
-let {id, imagePath, altText, title, description, date, tags, imageIdx=0, posts = [] }: Props = Astro.props
+let {id, imagePath, altText, title, description, date, tags, imageIdx=0, posts = [] ,pinned = false}: Props = Astro.props
 
 const contents = posts.map((p) => {
   return {
@@ -37,8 +38,16 @@ const href = `/series/${id}`
 
 <div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
   <a  {href}>
-    {imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
-    <h2 class="font-bold font-display text-2xl">{title}</h2>
+		{imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
+		<div class="flex flex-row items-center justify-between">
+			<h2 class="font-bold font-display text-2xl">{title}</h2>
+			{pinned === true && (
+			<span class="flex flex-row items-center gap-1">
+				<p class="text-sm text-mono-600 dark:text-mono-300 high-contrast:text-mono-800 high-contrast:font-medium dark:high-contrast:text-mono-100 ">Pinned</p>
+				<Icon class="text-primary-500 stroke-2" name="lucide:pin"	/>
+			</span>
+			)}
+		</div>
   </a>
   <p class="text-sm flex flex-row gap-2">
     <span class="font-bold">

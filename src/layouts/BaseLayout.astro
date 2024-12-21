@@ -7,13 +7,19 @@ import SharedBanner from "../components/SharedBanner.svelte"
 import {Icon} from "astro-icon/components"
 import { SHARED_BANNER_ID } from "../consts"
 
-let {title, description} = Astro.props
+interface Props {
+	title: string,
+	description: string,
+	image?: string
+}
+
+let {title, description, image} = Astro.props
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="h-full scroll-smooth">
   <head>
-    <BaseHead title={title} description={description} />
+		<BaseHead {title} {description} {image} />
   </head>
   <body class="font-body h-full flex flex-col bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50">
     <header>
@@ -62,6 +68,9 @@ let {title, description} = Astro.props
 
 <script>
 import { initHeadingLinkHandlers } from "../lib/headings";
+import {  setCurrentVisited, isVisited } from "../lib/animation";
 
+setCurrentVisited()
 initHeadingLinkHandlers()
+
 </script>
