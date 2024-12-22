@@ -39,12 +39,11 @@ const href = `/series/${id}`
 <div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
   <a  {href}>
 		{imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
-		<div class="flex flex-row items-center justify-between">
+		<div class="flex flex-row items-center justify-between ">
 			<h2 class="font-bold font-display text-2xl">{title}</h2>
 			{pinned === true && (
-			<span class="flex flex-row items-center gap-1">
-				<p class="text-sm text-mono-600 dark:text-mono-300 high-contrast:text-mono-800 high-contrast:font-medium dark:high-contrast:text-mono-100 ">Pinned</p>
-				<Icon class="text-primary-500 stroke-2" name="lucide:pin"	/>
+			<span class="p-4 flex flex-row items-center gap-1">
+				<Icon size="24" class="text-primary-500 stroke-2" name="lucide:pin"	/>
 			</span>
 			)}
 		</div>

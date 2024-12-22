@@ -7,17 +7,19 @@ import Logo from "../components/Logo.astro"
 import Wordmark from './Wordmark.astro';
 import { Icon } from 'astro-icon/components';
 
-import {darkTheme, highContrastTheme} from "../lib/themes"
-
-
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const logo = pathname != "" ? true : false
 ---
 
 <nav class="w-full relative flex flex-row gap-4 p-8 items-center">
   <a name="Home" class="mr-auto" href="/">
-    {!logo && (
-    <Wordmark/>
+		{!logo && (
+		<div class="w-12 stroke-[16px] high-contrast:stroke-[24px] h-auto block md:hidden">
+      <Logo />
+		</div>
+		<div class="hidden md:block">
+			<Wordmark/>
+		</div>
     )}
     {logo && (
     <div class="w-12 stroke-[16px] high-contrast:stroke-[24px] h-auto">
@@ -25,8 +27,8 @@ const logo = pathname != "" ? true : false
     </div>
     )}
   </a>
-  <button class="block md:hidden" id="menu-toggle"><Icon name="lucide:menu"/></button>
-  <ul class="px-8 md:px-0 header-items absolute top-full bg-mono-50  dark:bg-mono-950 md:bg-transparent dark:md:bg-transparent z-10 left-0 w-full md:w-fit shadow-md md:shadow-none md:static hidden md:flex font-display flex-col md:flex-row">
+  <button class="block md:hidden" id="menu-toggle"><Icon size="24" name="lucide:menu"/></button>
+  <ul id="header-items" class="px-4 md:px-0 pb-8 md:pb-0 absolute top-full bg-mono-50 dark:bg-mono-950 md:bg-transparent dark:md:bg-transparent z-10 left-0 w-full md:w-fit shadow-md md:shadow-none md:static hidden md:flex font-display flex-col md:flex-row">
 		<HeaderLink href="/blog/1">Posts</HeaderLink>
     <HeaderLink href="/contact">Contact</HeaderLink>
   </ul>
@@ -44,41 +46,18 @@ const logo = pathname != "" ? true : false
 
 
 <script>
-import anime from "animejs/lib/anime.es"
+import { reduceMotion } from "../lib/animation"
+import { animateSlide } from "../lib/animation"
+
+if(!reduceMotion) {
+	const toggle = document.querySelector("#menu-toggle")
+	const itemsRoot = document.querySelector("#header-items")!
+	const items = Array.from(itemsRoot.children)
 
 let open = false
-const toggle = document.querySelector("#menu-toggle")
-const navItems = document.querySelector(".header-items")
-
-const toggleClasses = () => {
-  let addClass = open ? "flex" : "hidden"
-  let removeClass = open ? "hidden" : "flex"
-  navItems?.classList.add(addClass) 
-  navItems?.classList.remove(removeClass)
+toggle?.addEventListener("click", () => {
+	open = !open;
+		animateSlide(open, itemsRoot, items)
+	})
 }
-
-const toggleOpen = () => {
-  open = !open
-  if(open) {
-    anime({
-      targets: navItems,
-      top: ["50%", "100%"],
-      opacity: [0, 1],
-      duration: 100,
-      easing: 'easeInOutCubic' 
-    })
-    toggleClasses()
-  } else {
-    anime({
-      targets: navItems,
-      top: ["100%", "50%"],
-      opacity: [1, 0],
-      duration: 100,
-      easing: 'easeInOutCubic' 
-    })
-    setTimeout(toggleClasses, 100)
-  }
-}
-
-toggle?.addEventListener("click", toggleOpen)
 </script>

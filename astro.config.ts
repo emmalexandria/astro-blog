@@ -27,10 +27,13 @@ import { icons } from "@iconify-json/lucide"
 import robotsTxt from 'astro-robots-txt';
 
 
+import pagefind from 'astro-pagefind';
+
+
 ///Cast, we know this won't be null
 const linkIconData = getIconData(icons, 'link') as FullExtendedIconifyIcon
 const linkIconRenderData = iconToSVG(linkIconData, {
-  height: 'auto'
+	height: 'auto'
 })
 const linkIconHTML = iconToHTML(replaceIDs(linkIconRenderData.body), { ...linkIconRenderData.attributes })
 
@@ -41,42 +44,45 @@ const AnchorLinkIcon = fromHtml(linkIconHTML)
 
 // https://astro.build/config
 export default defineConfig({
-  site: SITE_ROOT,
-  markdown: {
-    rehypePlugins: [rehypeSlug,
-      [rehypeAutolinkHeadings,
-        {
-          behavior: 'append',
-          headingProperties: {
-            class: 'heading-link'
-          },
-          content: (heading: any) => [
-            AnchorLinkIcon,
-          ]
-        }
-      ]
-    ],
-    shikiConfig: {
-      themes: {
-        //@ts-ignore
-        light: latte,
-        //@ts-ignore
-        dark: 'material-theme-darker'
-      },
-      defaultColor: false,
-      transformers: [
-        transformerNotationFocus(),
-        transformerNotationDiff(),
-        transformerNotationHighlight(),
-        transformerNotationWordHighlight(),
-        transformerMetaHighlight(),
-        transformerNotationFocus(),
-        transformerRenderWhitespace()
-      ]
-    }
-  },
-  integrations: [mdx(), sitemap(), robotsTxt(), tailwind(), svelte(), icon()],
-  experimental: {
-    responsiveImages: true
-  }
+	site: SITE_ROOT,
+	build: {
+		format: "file"
+	},
+	markdown: {
+		rehypePlugins: [rehypeSlug,
+			[rehypeAutolinkHeadings,
+				{
+					behavior: 'append',
+					headingProperties: {
+						class: 'heading-link'
+					},
+					content: (heading: any) => [
+						AnchorLinkIcon,
+					]
+				}
+			]
+		],
+		shikiConfig: {
+			themes: {
+				//@ts-ignore
+				light: latte,
+				//@ts-ignore
+				dark: 'material-theme-darker'
+			},
+			defaultColor: false,
+			transformers: [
+				transformerNotationFocus(),
+				transformerNotationDiff(),
+				transformerNotationHighlight(),
+				transformerNotationWordHighlight(),
+				transformerMetaHighlight(),
+				transformerNotationFocus(),
+				transformerRenderWhitespace()
+			]
+		}
+	},
+	integrations: [mdx(), sitemap(), robotsTxt(), tailwind(), svelte(), icon(), pagefind()],
+	experimental: {
+		responsiveImages: true
+	}
 });

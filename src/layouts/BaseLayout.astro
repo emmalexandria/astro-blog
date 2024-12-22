@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
 import SharedBanner from "../components/SharedBanner.svelte"
+import Search from "astro-pagefind/components/Search"
 
 import {Icon} from "astro-icon/components"
 import { SHARED_BANNER_ID } from "../consts"
@@ -26,7 +27,7 @@ let {title, description, image} = Astro.props
       <Header />
     </header>
     <main class="px-8 grow">
-      <slot/>
+			<slot/>
       <SharedBanner client:load>
         <Icon slot="icon" name="lucide:x"/>
       </SharedBanner>

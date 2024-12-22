@@ -38,10 +38,12 @@ const getElement = <E extends Element>(element: string | E): E | undefined => {
 	return element
 }
 
+export const reduceMotion = window.matchMedia('(prefers-reduced-motion').matches
+
 
 export const animateSvg = (svg: string | SVGElement, timing: { duration: number, strokeDelay: number } = { duration: 1000, strokeDelay: 5 }) => {
 	const target = getElement(svg)
-	if (!target) {
+	if (!target || reduceMotion) {
 		return
 	}
 
@@ -63,7 +65,7 @@ export const animateSvg = (svg: string | SVGElement, timing: { duration: number,
 
 export const hoverSlamAnimate = (target: string | Element, duration: number) => {
 	const element = getElement(target);
-	if (!element) {
+	if (!element || reduceMotion) {
 		return
 	}
 
@@ -78,7 +80,7 @@ export const hoverSlamAnimate = (target: string | Element, duration: number) => 
 
 export const animateFade = (element: string | Element, duration: number = 500, delay: number = 0) => {
 	const target = getElement(element);
-	if (!target) {
+	if (!target || reduceMotion) {
 		return
 	}
 
@@ -90,3 +92,41 @@ export const animateFade = (element: string | Element, duration: number = 500, d
 		easing: 'linear'
 	})
 }
+
+export const animateSlide = (open: boolean, root: Element, navItems: Element[]) => {
+
+	const toggleClasses = () => {
+		let addClass = open ? "flex" : "hidden"
+		let removeClass = open ? "hidden" : "flex"
+		root.classList.add(addClass)
+		root.classList.remove(removeClass)
+	}
+
+	if (open) {
+		anime({
+			targets: root,
+			opacity: [0, 1],
+			duration: 200,
+			easing: 'linear'
+		})
+
+		anime({
+			targets: navItems,
+			opacity: [0, 1],
+			duration: 200,
+			delay: (el, i) => 200 + 100 * i,
+			easing: 'easeInOutCubic'
+		})
+		toggleClasses()
+	} else {
+
+		anime({
+			targets: root,
+			opacity: [1, 0],
+			duration: 200,
+			easing: 'linear',
+		})
+	}
+}
+
+
