@@ -13,28 +13,25 @@ export async function getStaticPaths() {
   const {seriesPostList, standalonePosts} = await seperatePosts(series, posts) 
 
   let retValue = [];
-  return posts.map((p) => {
+  
+  retValue.push(...seriesPostList.flatMap((sp) => {
+    return sp.posts.map((p) => {
+      return {
+        params: {slug: p.id},
+        props: {post: p, series: sp.series}
+      }
+    })
+  }))
+
+
+  retValue.push(...standalonePosts.map((p) => {
     return {
       params: {slug: p.id},
-      props: {post: p}
+      props: {post: p, series: undefined}
     }
-  })
-  // retValue.push(...seriesPostList.flatMap((sp) => {
-  //   return sp.posts.map((p) => {
-  //     return {
-  //       params: {slug: p.id},
-  //       props: {post: p, series: sp.series}
-  //     }
-  //   })
-  // }))
-  //
-  //
-  // retValue.push(...standalonePosts.map((p) => {
-  //   return {
-  //     params: {slug: p.id},
-  //     props: {post: p, series: undefined}
-  //   }
-  // }))
+	}))
+
+	return retValue;
 
 
 }

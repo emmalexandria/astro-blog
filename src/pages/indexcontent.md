@@ -11,4 +11,6 @@ How many times have you actually designed a typescale? And no, generating one wi
 
 As web developers, we have rare opportunities to embody the very best of what the internet can be. I hope I'm not alone in genuinely loving the web and enjoying building for it. However, all too often we just end up representing the worst of the web. Derivative sites purely built as a push for financial gain, absolute behemoths which look pretty at the expense of accessibility, and overly bright websites abound.
 
-## Building  
+## Build with care
+
+A blog **is not** the place to show off. I repeat, **do not** show off when building a blog. Blogs are content websites, and developer blogs in particular are special. Unlike so many content-focused sites on the internet, we aren't trying to sell some service with SEO spam. The number one focus of your blog should be readability.
