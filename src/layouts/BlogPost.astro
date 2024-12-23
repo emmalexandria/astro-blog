@@ -9,6 +9,7 @@ import SeriesButtons from '../components/blog/SeriesButtons.astro';
 import ScrollToTop from "../components/ScrollToTop.svelte"
 import {Icon }from "astro-icon/components";
 import { getSeriesPosts, type SeriesPost } from '../lib/content.utils';
+import type { HeadOptions } from '../components/BaseHead.astro';
 
 interface Props {
   post: SeriesPost | CollectionEntry<"blog">,
@@ -34,9 +35,22 @@ if(series !== undefined) {
   }
 
 }
+
+const options: HeadOptions = {
+title: post.data.title,
+	description: post.data.description,
+	image:post.data.image,
+	type: "article",
+	article: {
+		publishedTime: post.data.pubDate.toISOString(),
+		modifiedTime: post.data.updatedDate?.toISOString(),
+		authors: ["Emma Alexandria"],
+		tags: post.data.tags ?? []
+	}
+}
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} image={post.data.image?.src}>
+<BaseLayout {options}>
   <article class="snap-y w-full md:w-content mx-auto">
     <div class="article-info">
       <div class="hero-image rounded-md overflow-clip">

@@ -8,6 +8,7 @@ import SeriesCard from '../../components/blog/SeriesCard.astro';
 
 import { type GetStaticPaths } from 'astro';
 import Paginator from '../../components/Paginator.astro';
+import type { HeadOptions } from '../../components/BaseHead.astro';
 
 export const getStaticPaths: GetStaticPaths = async ({paginate}) => {
 	let items = await getPostsAndSeries()
@@ -24,12 +25,17 @@ interface Props {
 	page: Page
 }
 const {page} = Astro.props
+
+const options: HeadOptions = {
+	title: "All posts",
+	description: "All the posts I've written"
+}
 ---
 
-<BaseLayout title="All posts" description="All my posts">
+<BaseLayout {options}>
   <section class="w-full md:w-content mx-auto">
 		<h1 class="text-6xl font-display font-bold mb-4">All posts</h1>
-		<ul>
+		<ul class="flex flex-col gap-4">
 		{
 			page.data.map((post: PostListItem, index: number) => 
 			post.isSeries ? (

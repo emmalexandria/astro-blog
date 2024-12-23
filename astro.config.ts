@@ -15,9 +15,6 @@ import { icons } from "@iconify-json/lucide"
 import robotsTxt from 'astro-robots-txt';
 import pagefind from 'astro-pagefind';
 
-
-
-
 ///Cast, we know this won't be null
 const linkIconData = getIconData(icons, 'link') as FullExtendedIconifyIcon
 const linkIconRenderData = iconToSVG(linkIconData, {

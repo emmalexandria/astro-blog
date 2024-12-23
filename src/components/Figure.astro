@@ -17,11 +17,10 @@ if(relative) {
   src = path.join("/src/assets", src)
 }
 
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif,webp}');
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpeg,jpg,png,gif,webp}');
 if(src) {
   if (!images[src] ) throw new Error(`"${src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 }
-
 ---
 
 {image && (

@@ -3,9 +3,14 @@ import ContactCard from "../components/ContactCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import {Icon} from "astro-icon/components"
+
+const options = {
+	title: 'Contact me',
+	description: 'My contact links'
+}
 ---
 
-<BaseLayout title="Contact me" description="All my contact links">
+<BaseLayout {options}>
   <div class="w-fit mx-auto">
     <h1 class="text-6xl mb-2 font-bold font-display text-center">Contact me</h1>
     <div class="flex flex-col gap-4">

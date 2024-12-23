@@ -26,7 +26,7 @@ const href = `/blog/${id}`
 const headerImage = image ? {...image, loading} : undefined
 ---
 
-<div class="border block transition-all border-duotone hover:border-duotone-hover p-4 rounded">
+<div class="relative overflow-hidden border block transition-all border-duotone hover:border-duotone-hover p-4 rounded">
 	<CardHeader {title} {href} image={headerImage} {pinned}/>
         <p class="text-sm italic">
         <FormattedDate date={date} />

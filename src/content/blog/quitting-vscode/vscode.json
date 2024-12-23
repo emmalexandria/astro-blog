@@ -1,6 +1,10 @@
 {
-	"name": "Quitting VSCode — the why and how",
+	"name": "Quitting VSCode – the why and how",
 	"description": "This multi-part series will take you from VSCode to Neovim through incremental changes to VSCode's configuration. It culminates in a switch to LazyVim.",
 	"slug": "quitting-vscode",
-	"pinned": true
+	"pinned": true,
+	"image": {
+		"src": "vscode/series.png",
+		"alt": "An image showing the VSCode logo and text saying 'it kinda sucks'."
+	}
 }

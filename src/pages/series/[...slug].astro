@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import BlogCard from '../../components/blog/BlogCard.astro';
 import { dynamicPostFilter, getSeriesPosts, type SeriesPost, type SeriesPosts } from '../../lib/content.utils';
+import type { HeadOptions } from '../../components/BaseHead.astro';
 
 export async function getStaticPaths() {
   const allPosts = dynamicPostFilter(await getCollection('blog'));
@@ -24,17 +25,21 @@ interface Props {
 
 let {posts, series} = Astro.props
 let {slug} = Astro.params
-console.log(posts)
 const orderedPosts = posts.sort((a, b) => {
   return (a.index ) - (b.index)
 })
+
+const options: HeadOptions = {
+	title: `Index of ${series.data.name}`,
+	description: series.data.description
+}
 ---
 
-<BaseLayout title={`${series.data.name} | Index`} description={series.data.description}>
+<BaseLayout {options}>
   <section class="w-full md:w-content mx-auto">
     <h1 class="text-6xl font-display font-bold mb-4">{series.data.name}</h1>
     <p>{series.data.description}</p>
-    <ul>
+    <ul class="flex flex-col gap-4 mt-4">
       {
       orderedPosts.map((post, index) => (
       <li>

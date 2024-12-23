@@ -5,14 +5,20 @@ import { dynamicPostFilter, getPostsAndSeries, seperatePosts } from "../lib/cont
 import BlogCard from "../components/blog/BlogCard.astro"
 import { getCollection, type CollectionEntry } from "astro:content";
 import SeriesCard from "../components/blog/SeriesCard.astro";
+import type { HeadOptions } from "../components/BaseHead.astro";
 
 
 const postsSeries = await getPostsAndSeries();
 const posts = postsSeries.filter((p) => !p.isSeries).slice(0, 3);
 const series = postsSeries.filter((p) => p.isSeries).slice(0, 3);
+
+const options: HeadOptions = {
+	title: "Home",
+	description: "Where I put my writing and other stuff"
+}
 ---
 
-<BaseLayout title="Home" description="Where I put my writing and other stuff">
+<BaseLayout {options}>
 			<section class="mb-4">
 		<h1 class="text-4xl font-display font-bold mb-2">Posts</h1>
 		<div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3">
@@ -32,7 +38,7 @@ const series = postsSeries.filter((p) => p.isSeries).slice(0, 3);
 	<section class="mt-8">
 		<div class="transition-all rounded border border-duotone hover:border-duotone-hover w-full">
 			<div class="flex flex-col px-4 py-2 items-center">
-				<a href="/manifesto" class="flex flex-row gap-2">
+				<a href="/manifesto" class="flex flex-row gap-2 items-center">
 					<h1 class="text-3xl font-bold font-display">My blog manifesto</h1>
 					<div class="h-fit w-fit transition-all border border-shadow-primary rounded-lg hover:border-shadow-primary-high">
 						<Icon size="24" name="lucide:arrow-right"/>

@@ -1,11 +1,17 @@
 ---
+import type { HeadOptions } from "../../components/BaseHead.astro"
 import Logo from "../../components/Logo.astro"
 import { SITE_TITLE } from "../../consts"
 import BaseLayout from "../../layouts/BaseLayout.astro"
 import * as rootContent from "./content.md"
+
+const options: HeadOptions = {
+	title: "Manifesto",
+	description: "A short rant on web design and development."
+}
 ---
 
-<BaseLayout title="Manifesto" description="A short rant on web design and development.">
+<BaseLayout {options}>
   <article class="w-full md:w-content mx-auto heading-center ">
     <div id="headerWrapper">
       <div class="w-32 stroke-[16px] mx-auto" id="logoWrapper">

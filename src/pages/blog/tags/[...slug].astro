@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogCard from '../../../components/blog/BlogCard.astro';
+import type { HeadOptions } from '../../../components/BaseHead.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -17,16 +18,21 @@ export async function getStaticPaths() {
 
 let {posts} = Astro.props
 let {slug} = Astro.params
+
+const options: HeadOptions = {
+	title: `Posts with the ${slug} tag`,
+	description: `All the posts I've written tagged with ${slug}`
+}
 ---
 
-<BaseLayout title={`Posts with the ${slug} tag`}>
+<BaseLayout {options}>
   <section class="w-content mx-auto">
 <h1 class="text-4xl font-display font-bold mb-4">Posts tagged with <span class="font-mono">#{slug}</span></h1>
-    <ul>
+    <ul class="flex flex-col gap-4">
       {
-      posts.map((post: any, index) => (
+      posts.map((post: any, index: number) => (
       <li>
-        <BlogCard id={post.id} imageIdx={index} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+        <BlogCard id={post.id} imageIdx={index} tags={post.data.tags} image={post.data.image} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
       </li>
             ))
       }

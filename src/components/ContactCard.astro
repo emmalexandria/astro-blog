@@ -2,12 +2,13 @@
 interface Props {
   href: string;
   name: string;
-  text: string;
+	text: string;
+	class?: string
 }
-let {href, name, text}:Props = Astro.props
+let {href, name, text, class: className}:Props = Astro.props
 ---
 
-<a {href} target="_blank" class="transition-all border border-duotone hover:border-duotone-hover flex flex-row items-center gap-4 px-4 py-2 rounded">
+<a {href} target="_blank" class:list={className} class="transition-all border border-duotone hover:border-duotone-hover flex flex-row items-center gap-4 px-4 py-2 rounded">
   <span class="text-3xl">
     <slot/>
   </span>
@@ -15,7 +16,7 @@ let {href, name, text}:Props = Astro.props
     <p class="leading-none mb-1">
       {name}
     </p>
-    <p class="leading-none text-sm italic text-mono-700 dark:text-mono-400">
+    <p class="leading-none text-sm italic high-contrast:text-mono-900 dark:high-contrast:text-mono-100 text-mono-700 dark:text-mono-400">
       {text}
     </p>
   </span>

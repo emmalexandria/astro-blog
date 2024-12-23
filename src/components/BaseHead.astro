@@ -3,58 +3,86 @@
 import '../styles/index.css';
 import { SITE_TITLE } from "../consts";
 
-import {AstroFont} from "astro-font"
+import {SEO} from "astro-seo"
 
 import "@fontsource-variable/vollkorn";
 import "@fontsource-variable/exo-2";
 import "@fontsource/overpass-mono";
 
+export interface HeadOptions {
+	title: string
+	description: string
+	image?: {
+		src: string,
+		alt: string
+	} 
+	noindex?: boolean
+	nofollow?: boolean
+	type?: "article" | "string",
+	article?: {
+		publishedTime: string,
+		modifiedTime?: string,
+		authors: string[],
+		tags: string[]
+	}
+}
+
 interface Props {
-	title: string;
-	description: string;
-	image?: string;
+	options: HeadOptions	
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+const { options: {title, description, image, noindex, nofollow, type = "website", article}} = Astro.props;
+
+let imageSrc = ""
+if(image) {
+	imageSrc = new URL(image.src, Astro.url).toString()
+} else {
+	imageSrc = new URL("spots.svg", Astro.url.origin).toString()
+}
 ---
 
-
-
-
-<!-- Global Metadata -->
-<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<meta name="generator" content={Astro.generator} />
-
-
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 <link rel="alternate" type="application/rss+xml" title="Library of Alexandria" href={new URL("rss.xml", Astro.site)}/>
 
-<!-- Primary Meta Tags -->
-<title>{title} | {SITE_TITLE}</title>
-<meta name="title" content={`${title} | ${SITE_TITLE}`} />
-<meta name="description" content={description} />
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<SEO 
+	{title} 
+	titleDefault='Blog'
+	titleTemplate={`%s - ${SITE_TITLE}`} 
+	{description}
+	canonical={canonicalURL}
+	{noindex}
+	{nofollow}
+	charset='utf-8'
+	openGraph={{
+		basic: {
+			title,
+			type,
+			image: imageSrc
+		},
+		image: {
+			alt: image?.alt ?? ""
+		},
+		article
+	}}
+	twitter={{
+		title,
+		card: "summary_large_image",
+		image: imageSrc,
+		imageAlt: image?. alt ?? "",
+		description
+	}}
+>
 
 
 <!-- Init themes in the head to prevent FUC -->
