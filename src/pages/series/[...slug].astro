@@ -44,7 +44,7 @@ const options: HeadOptions = {
       {
       orderedPosts.map((post, index) => (
       <li>
-        <BlogCard part={post.index} imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+				<BlogCard part={post.index} imageIdx={index} id={post.id} tags={post.data.tags} image={post.data.image} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
       </li>
             ))
       }

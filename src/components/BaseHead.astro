@@ -40,8 +40,8 @@ let imageSrc = ""
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpeg,jpg,png,gif,webp}');
 if(image) {
-	const imageGlob = images[join("/src/assets", image.src)]
-	imageSrc = new URL(imageGlob.toString(), Astro.url.origin).toString()
+	const imageGlob = await images[join("/src/assets", image.src)]()
+	imageSrc = new URL(imageGlob.default.src, Astro.url.origin).toString()
 } else {
 	imageSrc = new URL("spots.svg", Astro.url.origin).toString()
 }
