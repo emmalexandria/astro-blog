@@ -5,6 +5,8 @@ import { SITE_TITLE } from "../consts";
 
 import {SEO} from "astro-seo"
 
+import {join} from "path"
+
 import "@fontsource-variable/vollkorn";
 import "@fontsource-variable/exo-2";
 import "@fontsource/overpass-mono";
@@ -35,8 +37,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { options: {title, description, image, noindex, nofollow, type = "website", article}} = Astro.props;
 
 let imageSrc = ""
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpeg,jpg,png,gif,webp}');
 if(image) {
-	imageSrc = new URL(image.src, Astro.url).toString()
+	const imageGlob = images[join("/src/assets", image.src)]
+	imageSrc = new URL(imageGlob.toString(), Astro.url.origin).toString()
 } else {
 	imageSrc = new URL("spots.svg", Astro.url.origin).toString()
 }

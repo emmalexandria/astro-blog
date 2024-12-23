@@ -52,9 +52,9 @@ const seriesToPostListItem = (seriesPosts: SeriesPosts): PostListItem | undefine
 
 export const dynamicPostFilter = (allPosts: CollectionEntry<'blog'>[]) => {
 	return allPosts.filter((post) => {
-		if (import.meta.env.PROD) {
-			return !post.data.draft
-		}
+		// if (import.meta.env.PROD) {
+		// 	return !post.data.draft
+		// }
 
 		return true
 	})
