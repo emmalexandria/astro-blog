@@ -4,11 +4,11 @@ import FormattedDate from '../FormattedDate.astro';
 import TagDisplay from './TagDisplay.astro';
 import LinkButton from '../LinkButton.astro';
 import {Icon} from "astro-icon/components"
+import CardHeader from './CardHeader.astro';
 
 interface Props {
-  id: string;
-  imagePath?: string;
-  altText?: string;
+	id: string;
+	image?: {src: string, alt: string}
   title: string;
   description: string;
   date: Date;
@@ -19,26 +19,16 @@ interface Props {
 }
 
 
-let {id, imagePath, altText, title, description, date, tags, part,imageIdx=0, pinned = false}: Props = Astro.props
+let {id, image, title, description, date, tags, part,imageIdx=0, pinned = false}: Props = Astro.props
 
 const loading: "eager" | "lazy" = imageIdx < 3 ? "eager" : "lazy"
 const href = `/blog/${id}`  
+const headerImage = image ? {...image, loading} : undefined
 ---
 
-<div class="border block my-4 transition-all border-duotone hover:border-duotone-hover p-4 rounded">
-  <a  {href}>
-    {imagePath &&  <Figure image={true} {loading} class="mb-2 rounded" src={imagePath} alt={altText ?? ""} />}
-    {part !== undefined && (<p class="font-body text-sm font-bold">Part {part}</p>)}  
-    <div class="flex flex-row items-center justify-between">
-			<h2 class="font-bold font-display text-2xl">{title}</h2>
-			{pinned === true && (
-			<span class="flex px-4 flex-row items-center gap-1">
-				<Icon size="24" class="text-primary-500 stroke-2" name="lucide:pin"	/>
-			</span>
-			)}
-		</div>
-  </a>
-      <p class="text-sm italic">
+<div class="border block transition-all border-duotone hover:border-duotone-hover p-4 rounded">
+	<CardHeader {title} {href} image={headerImage} {pinned}/>
+        <p class="text-sm italic">
         <FormattedDate date={date} />
       </p>
   <p class="mb-2">{description}</p>

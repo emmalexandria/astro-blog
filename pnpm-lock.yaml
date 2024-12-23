@@ -120,6 +120,9 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
     devDependencies:
+      '@iconify-json/gg':
+        specifier: ^1.2.2
+        version: 1.2.2
       '@iconify/utils':
         specifier: ^2.2.1
         version: 2.2.1
@@ -532,6 +535,9 @@ packages:
 
   '@iconify-json/fa6-brands@1.2.3':
     resolution: {integrity: sha512-vwdbeIpy9BgGonD6dwMIoZnzn/xo3w/mn1A+YcNxo42xTmVJeX2oobGlXlbN9P4BNi879dK9xvOjZpj7hYV2mg==}
+
+  '@iconify-json/gg@1.2.2':
+    resolution: {integrity: sha512-8iQh8+Tdb/0jakNYy0+t2GVubjhbaJbuYoPsRhFw8IAs00IQV2BjE9GoB2kGF/UObaJCqvCelB3qRaUdizkrmg==}
 
   '@iconify-json/logos@1.2.3':
     resolution: {integrity: sha512-JLHS5hgZP1b55EONAWNeqBUuriRfRNKWXK4cqYx0PpVaJfIIMiiMxFfvoQiX/bkE9XgkLhcKmDUqL3LXPdXPwQ==}
@@ -3287,6 +3293,10 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/fa6-brands@1.2.3':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/gg@1.2.2':
     dependencies:
       '@iconify/types': 2.0.0
 

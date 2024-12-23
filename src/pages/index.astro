@@ -1,40 +1,51 @@
 ---
-import Logo from "../components/Logo.astro"
-import { SITE_TITLE } from "../consts"
+import { Icon } from "astro-icon/components"
 import BaseLayout from "../layouts/BaseLayout.astro"
-import * as rootContent from "./indexcontent.md"
+import { dynamicPostFilter, getPostsAndSeries, seperatePosts } from "../lib/content.utils"
+import BlogCard from "../components/blog/BlogCard.astro"
+import { getCollection, type CollectionEntry } from "astro:content";
+import SeriesCard from "../components/blog/SeriesCard.astro";
+
+
+const postsSeries = await getPostsAndSeries();
+const posts = postsSeries.filter((p) => !p.isSeries).slice(0, 3);
+const series = postsSeries.filter((p) => p.isSeries).slice(0, 3);
 ---
 
-<BaseLayout title="Home" description="Where I keep writing and stuff">
-  <article class="w-full md:w-content mx-auto heading-center ">
-    <div id="headerWrapper">
-      <div class="w-32 stroke-[16px] mx-auto" id="logoWrapper">
-        <Logo/>
-      </div>
-    <h1 class="text-center mb-0 title ">This is a simple blog</h1>
-			<h2 class="text-center squiggle subtitle ">It wants to not suck.</h2>
-    <p class="text-center text-mono-400 high-contrast:text-mono-900 high-contrast:dark:text-mono-100 my-0">A short manifesto about blogs and web development.</p>
-    </div>
-    <div class="markdown-content">
-      <rootContent.Content />
-    </div>
+<BaseLayout title="Home" description="Where I put my writing and other stuff">
+			<section class="mb-4">
+		<h1 class="text-4xl font-display font-bold mb-2">Posts</h1>
+		<div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3">
+			{posts.map((p) => (
+			<BlogCard id={p.id} title={p.data.title} description={p.data.description} date={p.data.pubDate} pinned={p.data.pinned} image={p.data.image}/>
+			))}
+		</div>
+	</section>
+	<section class="mb-4">
+		<h1 class="text-4xl font-display font-bold mb-2">Series</h1>
+		<div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3">
+			{series.map((s) => (
+			<SeriesCard hideParts={true} linkToSeries={true} id={s.id} title={s.data.title} posts={s.posts} description={s.data.description} date={s.data.pubDate} pinned={s.data.pinned} image={s.data.image}/>
+			))}
+		</div>
+	</section>
+	<section class="mt-8">
+		<div class="transition-all rounded border border-duotone hover:border-duotone-hover w-full">
+			<div class="flex flex-col px-4 py-2 items-center">
+				<a href="/manifesto" class="flex flex-row gap-2">
+					<h1 class="text-3xl font-bold font-display">My blog manifesto</h1>
+					<div class="h-fit w-fit transition-all border border-shadow-primary rounded-lg hover:border-shadow-primary-high">
+						<Icon size="24" name="lucide:arrow-right"/>
+					</div>
+				</a>
+				<p class="text-mono-600 dark:text-mono-400 high-contrast:text-mono-900 dark:high-contrast:text-mono-100">A meta post about blogs, web development, and developing with care</p>
+			</div>
+		</div>
+	</section>
 
-  </article>
+
+
+
+
+
 </BaseLayout>
-
-<script>
-import { animateFade, animateSvg, hoverSlamAnimate, isVisited } from "../lib/animation";
-
-if(!isVisited()) {
-	const logoWrapper = document.querySelector("#logoWrapper");
-	if(logoWrapper) {
-		for(const el of logoWrapper.children) {
-			if(el instanceof SVGElement) {
-				animateSvg(el)
-			}
-		}
-	}
-}
-</script>
-
-

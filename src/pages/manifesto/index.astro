@@ -1,0 +1,40 @@
+---
+import Logo from "../../components/Logo.astro"
+import { SITE_TITLE } from "../../consts"
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import * as rootContent from "./content.md"
+---
+
+<BaseLayout title="Manifesto" description="A short rant on web design and development.">
+  <article class="w-full md:w-content mx-auto heading-center ">
+    <div id="headerWrapper">
+      <div class="w-32 stroke-[16px] mx-auto" id="logoWrapper">
+        <Logo/>
+      </div>
+    <h1 class="text-center mb-0 title ">This is a simple blog</h1>
+			<h2 class="text-center squiggle subtitle ">It wants to not suck.</h2>
+    <p class="text-center text-mono-400 high-contrast:text-mono-900 high-contrast:dark:text-mono-100 my-0">A short manifesto about blogs and web development.</p>
+    </div>
+    <div class="markdown-content">
+      <rootContent.Content />
+    </div>
+
+  </article>
+</BaseLayout>
+
+<script>
+import { animateFade, animateSvg, hoverSlamAnimate, isVisited } from "../../lib/animation";
+
+if(!isVisited()) {
+	const logoWrapper = document.querySelector("#logoWrapper");
+	if(logoWrapper) {
+		for(const el of logoWrapper.children) {
+			if(el instanceof SVGElement) {
+				animateSvg(el)
+			}
+		}
+	}
+}
+</script>
+
+

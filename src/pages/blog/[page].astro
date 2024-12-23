@@ -34,11 +34,11 @@ const {page} = Astro.props
 			page.data.map((post: PostListItem, index: number) => 
 			post.isSeries ? (
 			<li>
-				<SeriesCard pinned={post.data.pinned} posts={post.posts} imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate} /> 
+				<SeriesCard pinned={post.data.pinned} posts={post.posts} imageIdx={index} id={post.id} tags={post.data.tags} image={post.data.image}  title={post.data.title} description={post.data.description} date={post.data.pubDate} /> 
 			</li>
 			) : (
 			<li>
-				<BlogCard pinned={post.data.pinned} imageIdx={index} id={post.id} tags={post.data.tags} imagePath={post.data.image?.src} altText={post.data.image?.alt} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
+				<BlogCard pinned={post.data.pinned} imageIdx={index} id={post.id} tags={post.data.tags} image={post.data.image} title={post.data.title} description={post.data.description} date={post.data.pubDate}/>
 			</li>
 			)
 

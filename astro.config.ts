@@ -2,32 +2,20 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-
 import tailwind from '@astrojs/tailwind';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
-
 import svelte from '@astrojs/svelte';
-
 import { latte, macchiato } from '@catppuccin/vscode';
-
-import { h } from 'hastscript'
 import { fromHtml } from 'hast-util-from-html';
-
 import { transformerNotationDiff, transformerMetaHighlight, transformerNotationFocus, transformerMetaWordHighlight, transformerNotationHighlight, transformerRenderWhitespace, transformerNotationWordHighlight } from "@shikijs/transformers"
-
 import icon from "astro-icon"
-
-
-
 import { getIconData, iconToHTML, iconToSVG, replaceIDs, type FullExtendedIconifyIcon, type IconifyIconBuildResult } from "@iconify/utils"
 import { icons } from "@iconify-json/lucide"
-
-
 import robotsTxt from 'astro-robots-txt';
-
-
 import pagefind from 'astro-pagefind';
+
+
 
 
 ///Cast, we know this won't be null
