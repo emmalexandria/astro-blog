@@ -8,7 +8,7 @@ export const addCopyButtonToCodeBlocks = () => {
 		const codeEl = preEl?.querySelector("code");
 		if (preEl) {
 			const button = document.createElement("button");
-			button.classList.add("absolute", "opacity-0", "group-hover:opacity-100", "transition-all", "top-2", "right-2", "px-2", "py-1", "bg-mono-100", "rounded", "font-body")
+			button.classList.add("absolute", "opacity-0", "group-hover:opacity-100", "transition-all", "top-1", "right-1", "px-2", "py-1", "bg-mono-100", "dark:bg-mono-900", "rounded", "font-body")
 			button.textContent = "Copy";
 			button.addEventListener("click", (evt) => {
 				evt.preventDefault();

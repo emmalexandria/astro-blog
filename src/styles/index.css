@@ -47,9 +47,7 @@ html .astro-code {
 
 
 	.astro-code-title {
-		@apply p-2 font-mono mb-0 text-mono-600 dark:text-mono-400 high-contrast:text-mono-900 high-contrast:dark:text-mono-100;
-
-		&::before {}
+		@apply p-2 italic border-b border-mono-100 high-contrast:border-mono-300 dark:border-mono-900 font-mono mb-0 text-mono-600 dark:text-mono-400 high-contrast:text-mono-900 high-contrast:dark:text-mono-100;
 	}
 }
 
@@ -140,11 +138,11 @@ html .astro-code {
 
 @layer base {
 	.border-duotone {
-		@apply border-mono-200 dark:border-mono-700 shadow-md shadow-mono-300/50 dark:shadow-mono-600/50
+		@apply border-mono-200 high-contrast:border-mono-400 dark:border-mono-700 high-contrast:dark:border-mono-300 shadow-md shadow-mono-300/50 dark:shadow-mono-600/50
 	}
 
 	.border-duotone-high {
-		@apply border-mono-300 dark:border-mono-500 shadow-lg shadow-mono-300/50 dark:shadow-mono-600/50
+		@apply border-mono-300 high-contrast:border-mono-900 dark:high-contrast:border-mono-100 dark:border-mono-500 shadow-lg shadow-mono-300/50 dark:shadow-mono-600/50
 	}
 
 	.border-duotone-hover {
