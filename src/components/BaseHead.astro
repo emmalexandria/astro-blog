@@ -57,6 +57,14 @@ if(image) {
 <link rel="canonical" href={canonicalURL} />
 <link rel="alternate" type="application/rss+xml" title="Library of Alexandria" href={new URL("rss.xml", Astro.site)}/>
 
+<!-- Init themes in the head to prevent FUC -->
+<!-- Can't be sourced from a file, otherwise the network request will cause FUC -->
+<script>
+import { initTheme, themes } from "../lib/themes";
+themes.forEach((t) => {
+	initTheme(t)
+})
+</script>
 
 
 
@@ -89,14 +97,5 @@ if(image) {
 	}}
 >
 
-
-<!-- Init themes in the head to prevent FUC -->
-<!-- Can't be sourced from a file, otherwise the network request will cause FUC -->
-<script>
-import { initTheme, themes } from "../lib/themes";
-themes.forEach((t) => {
-	initTheme(t)
-})
-</script>
 
 

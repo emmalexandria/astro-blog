@@ -14,6 +14,7 @@ import { getIconData, iconToHTML, iconToSVG, replaceIDs, type FullExtendedIconif
 import { icons } from "@iconify-json/lucide"
 import robotsTxt from 'astro-robots-txt';
 import pagefind from 'astro-pagefind';
+import remarkCodeTitles from "remark-flexible-code-titles";
 
 ///Cast, we know this won't be null
 const linkIconData = getIconData(icons, 'link') as FullExtendedIconifyIcon
@@ -34,6 +35,11 @@ export default defineConfig({
 		format: "file"
 	},
 	markdown: {
+		remarkPlugins: [[remarkCodeTitles, {
+			containerClassName: "astro-code-wrapper",
+			titleTagName: "p",
+			titleClassName: "astro-code-title"
+		}]],
 		rehypePlugins: [rehypeSlug,
 			[rehypeAutolinkHeadings,
 				{

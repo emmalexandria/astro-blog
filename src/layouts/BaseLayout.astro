@@ -13,6 +13,7 @@ interface Props {
 }
 
 let {options} = Astro.props
+
 ---
 
 <!DOCTYPE html>
@@ -68,8 +69,10 @@ let {options} = Astro.props
 <script>
 import { initHeadingLinkHandlers } from "../lib/headings";
 import {  setCurrentVisited, isVisited } from "../lib/animation";
+import { addCopyButtonToCodeBlocks } from "../lib/code";
 
 setCurrentVisited()
 initHeadingLinkHandlers()
+addCopyButtonToCodeBlocks()
 
 </script>

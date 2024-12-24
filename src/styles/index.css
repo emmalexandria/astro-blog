@@ -19,7 +19,7 @@ html.dark .astro-code {
 	}
 }
 
-html.light .astro-code {
+html .astro-code {
 	color: var(--shiki-light);
 	background-color: var(--shiki-light-background);
 	/* Optional, if you also want font styles */
@@ -37,11 +37,35 @@ html.light .astro-code {
 
 }
 
-.astro-code {
-	@apply rounded overflow-clip overflow-x-auto py-6 border border-duotone font-mono text-sm md:text-base transition-all dark:saturate-150;
+.astro-code-wrapper {
+	@apply rounded relative overflow-clip overflow-x-auto border border-duotone font-mono text-sm md:text-base transition-all;
 
 	&:hover {
 		@apply border-duotone-hover;
+	}
+
+
+
+	.astro-code-title {
+		@apply p-2 font-mono mb-0 text-mono-600 dark:text-mono-400 high-contrast:text-mono-900 high-contrast:dark:text-mono-100;
+
+		&::before {}
+	}
+}
+
+.astro-code {
+	@apply p-2;
+
+	code {
+		@apply whitespace-pre;
+	}
+
+	&::before {
+		content: attr(data-language);
+		top: 0;
+		right: 0;
+		@apply p-2;
+		position: absolute;
 	}
 
 	.space,
@@ -62,7 +86,7 @@ html.light .astro-code {
 	}
 
 	.line {
-		@apply inline-block px-8 min-w-full w-fit;
+		@apply inline-block min-w-full w-fit;
 	}
 
 	&.has-diff,
@@ -80,6 +104,7 @@ html.light .astro-code {
 
 	&.has-diff {
 		.line {
+			@apply px-4;
 			position: relative;
 		}
 	}
@@ -403,7 +428,7 @@ html.light .astro-code {
 			@apply list-decimal list-outside;
 		}
 
-		.astro-code {
+		.astro-code-wrapper {
 			@apply mb-6;
 		}
 

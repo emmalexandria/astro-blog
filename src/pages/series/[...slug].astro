@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import BlogCard from '../../components/blog/BlogCard.astro';
 import { dynamicPostFilter, getSeriesPosts, type SeriesPost, type SeriesPosts } from '../../lib/content.utils';
 import type { HeadOptions } from '../../components/BaseHead.astro';
+import Figure from '../../components/Figure.astro';
 
 export async function getStaticPaths() {
   const allPosts = dynamicPostFilter(await getCollection('blog'));
@@ -37,9 +38,12 @@ const options: HeadOptions = {
 ---
 
 <BaseLayout {options}>
-  <section class="w-full md:w-content mx-auto">
+	<section class="w-full md:w-content mx-auto">
+		{series.data.image && (
+		<Figure src={series.data.image.src} alt={series.data.image.alt}/>
+		)}
     <h1 class="text-6xl font-display font-bold mb-4">{series.data.name}</h1>
-    <p>{series.data.description}</p>
+    <p class="mb-4">{series.data.description}</p>
     <ul class="flex flex-col gap-4 mt-4">
       {
       orderedPosts.map((post, index) => (
